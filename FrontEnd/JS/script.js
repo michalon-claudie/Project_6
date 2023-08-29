@@ -1,31 +1,26 @@
 const url = fetch ('http://localhost:5678/api/works')
 
-fetch ('http://localhost:5678/api/works')
-    .then (response => console.log(response))
-    .then (response => ProjectWorks(works))
+const gallery = document.querySelector(".gallery")
 
-let works = 0;
+let i = 0;
 
-const imageWorks = document.createElement("img");
-imageWorks.src = works.imageUrl;
 
-const textWorks = document.createElement("p");
-textWorks.innerHTML = works.title;
 
-/***Child***/
+function galleryCreate(data)
+{
+    for (let i = 0; i < data.length ; i ++);   
 
-const sectionWorks = document.querySelector(".gallery")
-sectionWorks.appendChild(imageWorks);
-sectionWorks.appendChild(textWorks);
+        const worksIndex = data[i];
 
-function ProjectWorks(works)
-    {
-        if (response.ok === true)
-        {
-            (console.log('http://localhost:5678/api/works/imageUrl'))
-        }
-        else 
-        {
-            (console.log("erreur"))
-        }
-    }
+        const imageWorks = document.createElement("img");
+        imageWorks.src = worksIndex.imageUrl;
+
+        const textWorks = document.createElement("p");
+        textWorks.innerHTML = worksIndex.title;
+
+        /***Child***/
+
+        sectiondiv.appendChild(gallery);
+        gallery.appendChild(imageWorks);
+        gallery.appendChild(textWorks);
+}
