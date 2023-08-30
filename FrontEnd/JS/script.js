@@ -1,3 +1,5 @@
+const urlFetch = fetch ('http://localhost:5678/api/works');
+
 function galleryCreate(data)
 {
     for (let i = 0; i < data.length ; i ++);   
@@ -10,8 +12,6 @@ function galleryCreate(data)
         const textWorks = document.createElement("p");
         textWorks.innerText = worksIndex.title;
 
-        /***Child***/
-
         const gallery = document.querySelector(".gallery");
         gallery.appendChild(imageWorks);
         gallery.appendChild(textWorks);
@@ -23,21 +23,24 @@ let allProject = [];
 
 async function galleryGenerate()
 {
-    await fetch('http://localhost:5678/api/works')
+    await urlFetch
     .then ((response) => 
     {
     if (response.ok) return response.json()
     })
     .then ((data) =>
     {
-        console.table(data);
-        allProject = data;
-        console.log(allProject);
+      console.table(data);
+      allProject = data;
+      console.log(allProject);
 
-        galleryCreate(allProject);
-    })
+      galleryCreate(allProject);
+    }
+    )
     .catch ((error) => 
-    {alert ('Error')
-    console.log(error)
-    })
+    {
+      alert ('Error')
+      console.log(error)
+    }
+    )
 }
