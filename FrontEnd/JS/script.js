@@ -1,11 +1,9 @@
 const urlFetch = fetch ('http://localhost:5678/api/works');
-let allProject = [];
 
-let i = 0;
 
 function galleryCreate(data)
 {
-    for (let i = 0; i < data.length ; i ++); 
+    for (let i = 0; i < data.length ; i ++) 
     {  
         const worksIndex = data[i];
 
@@ -31,10 +29,9 @@ async function urlgenerate()
     .then ((data) =>
     {
       console.table(data);
-      allProject = data;
-      console.log(allProject);
+      console.log(data);
 
-      galleryCreate(allProject);
+      galleryCreate(data);
     }
     )
     .catch ((error) => 
