@@ -1,7 +1,7 @@
 const urlFetch = fetch ('http://localhost:5678/api/works');
 let allProject = [];
 
-let i =0;
+let i = 0;
 
 function galleryCreate(data)
 {
@@ -12,7 +12,7 @@ function galleryCreate(data)
         const imageWorks = document.createElement("img");
         imageWorks.src = worksIndex.imageUrl;
 
-        const textWorks = document.createElement("p");
+        const textWorks = document.createElement("figcaption");
         textWorks.innerText = worksIndex.title;
 
         const gallery = document.querySelector(".gallery");
