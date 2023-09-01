@@ -9,7 +9,6 @@ function galleryCreate(data)
         const gallery = document.querySelector(".gallery");
 
         const divProject = document.createElement("figure");
-        divProject.innerHTML = gallery.div;
 
         const imageWorks = document.createElement("img");
         imageWorks.src = worksIndex.imageUrl;
