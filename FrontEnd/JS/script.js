@@ -7,15 +7,20 @@ function galleryCreate(data)
     {  
         const worksIndex = data[i];
 
+        const gallery = document.querySelector(".gallery");
+
+        const divProject = document.createElement("figure");
+        divProject.innerHTML = worksIndex.div;
+
         const imageWorks = document.createElement("img");
         imageWorks.src = worksIndex.imageUrl;
 
         const textWorks = document.createElement("figcaption");
         textWorks.innerText = worksIndex.title;
 
-        const gallery = document.querySelector(".gallery");
-        gallery.appendChild(imageWorks);
-        gallery.appendChild(textWorks);
+        gallery.appendChild(divProject);
+        divProject.appendChild(imageWorks);
+        divProject.appendChild(textWorks);
     }
 }
 
