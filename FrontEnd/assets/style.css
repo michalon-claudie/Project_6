@@ -137,6 +137,32 @@ li:hover {
 	width: 100%;
 
 }
+/***Filters***/
+.filters
+{
+	display:flex;
+	justify-content: center;
+}
+button
+{
+	font-family: "Syne";
+	font-weight: 700;
+	font-size: 18px;
+	height: 37px;
+	color: #1d6154;
+	background-color: white;
+	border: solid 1px #1d6154;
+	margin: 50px 10px;
+	padding: 5px 20px;
+	text-align: center;
+	border-radius: 60px;
+	white-space: nowrap;
+}
+.filters span
+{
+	font-family: "Syne";
+}
+/***end-filters***/
 #contact {
 	width: 50%;
 margin: auto;

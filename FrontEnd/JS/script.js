@@ -48,30 +48,56 @@ async function urlgenerate()
 urlgenerate();
 
 /***Add category and filters***/
- const categoryFetch = fetch ("http://localhost:5678/api/categories");
+
+const categoryFetch = fetch ("http://localhost:5678/api/categories");
+
+function FiltersGenerate(data)
+{  
+  for (let i = 0; i < data.length ; i++)
+    { 
+      const filters = document.querySelector(".filters");
+
+      const CategoryIndex = data[i];
+
+      const button = document.createElement("button");
+
+      const buttonText = document.createElement("span");
+      buttonText.innerHTML = CategoryIndex.name;
+
+      filters.appendChild(button);
+      button.appendChild(buttonText);
+    }
+}
 
 async function categoryGenerate()
- {
-    await categoryFetch
-    .then ((response) =>
-    {
-      if (response.ok) return (response.json())
-    })
-    .then ((data) =>
-    {
-    console.log(data)
-    })
-    .catch ((error) =>
-    {
-    alert ('Error')
-    console.log('error')
-    });
- }
- 
- const filters = document.querySelector(".filters");
+{
+  await categoryFetch
+  .then ((response) => 
+  {
+  if (response.ok) return response.json()
+  })
+  .then ((data) =>
+  {
+    console.log(data);
+    FiltersGenerate(data);
+  })
+};
 
- const btnFilterObject = document.createElement(".btn FilterObject");
- btnFilterObject.innerHTML = filters.btn;
+function arrayFilters ()
+{
+  Array.filter(obj => obj.categoryId = 1)
+};
 
- filters.appendChild(btnFilterObject);
+const button = document.createElement("button");
+button.addEventListener("click", function()
+{
+  FilteredCategory.filter(function (data)
+  {
+    return data.id = 1;
+  })
+  console.log(FilteredCategory);
+}
+);
+
+categoryGenerate();
  
