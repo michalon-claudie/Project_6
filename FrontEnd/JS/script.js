@@ -58,6 +58,15 @@ urlgenerate();
 
 const categoryFetch = fetch ("http://localhost:5678/api/categories");
 
+const allButton = document.createElement("button");
+const filters = document.querySelector(".filters")
+const buttonText= document.createElement("span");
+buttonText.innerHTML = "Tous";
+
+filters.appendChild(allButton)
+allButton.appendChild(buttonText)
+allButton.addEventListener('click', galleryCreate(allProject));
+
 function FiltersGenerate(data)
 {  
   for (let i = 0; i < data.length ; i++)
