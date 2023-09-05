@@ -1,12 +1,19 @@
 const urlFetch = fetch ('http://localhost:5678/api/works');
+let allProject = [];
+
+function removeAllChildren(node) {
+  node.innerHTML=''
+}
 
 function galleryCreate(data)
 {
+  const gallery = document.querySelector(".gallery");
+
+  removeAllChildren(gallery)
+
     for (let i = 0; i < data.length ; i ++) 
     {  
         const worksIndex = data[i];
-
-        const gallery = document.querySelector(".gallery");
 
         const divProject = document.createElement("figure");
 
@@ -33,7 +40,7 @@ async function urlgenerate()
     {
       console.table(data);
       console.log(data);
-
+      allProject = data;
       galleryCreate(data);
     }
     )
@@ -57,15 +64,26 @@ function FiltersGenerate(data)
     { 
       const filters = document.querySelector(".filters");
 
-      const CategoryIndex = data[i];
+      const category = data[i];
 
       const button = document.createElement("button");
+      button.id = "filters-"+category.name;
 
       const buttonText = document.createElement("span");
-      buttonText.innerHTML = CategoryIndex.name;
+      buttonText.innerHTML = category.name;
 
       filters.appendChild(button);
       button.appendChild(buttonText);
+
+      button.addEventListener("click", function()
+      {
+        const FilteredProject = allProject.filter(
+          (project) => project.categoryId === category.id
+        )
+        console.log(FilteredProject);
+        galleryCreate(FilteredProject);
+      });
+      
     }
 }
 
@@ -83,21 +101,10 @@ async function categoryGenerate()
   })
 };
 
-function arrayFilters ()
-{
-  Array.filter(obj => obj.categoryId = 1)
-};
-
-const button = document.createElement("button");
-button.addEventListener("click", function()
-{
-  FilteredCategory.filter(function (data)
-  {
-    return data.id = 1;
-  })
-  console.log(FilteredCategory);
-}
-);
-
 categoryGenerate();
+
+/***Button generated***/
+
+
+
  
