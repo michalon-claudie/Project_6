@@ -65,7 +65,10 @@ buttonText.innerHTML = "Tous";
 
 filters.appendChild(allButton)
 allButton.appendChild(buttonText)
-allButton.addEventListener('click', galleryCreate(allProject));
+allButton.addEventListener('click', function ()
+{
+  galleryCreate(allProject)
+});
 
 function FiltersGenerate(data)
 {  
