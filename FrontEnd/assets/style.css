@@ -140,6 +140,15 @@ li:hover {
 	width: 100%;
 
 }
+a
+{
+    text-decoration: none;
+    color:black;
+}
+a:hover
+{
+    color: #B1663C;
+}
 /***Filters***/
 .filters
 {
