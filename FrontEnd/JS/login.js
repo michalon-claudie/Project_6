@@ -1,38 +1,39 @@
-async function getCorrectUser(correctEmail,correctPassword)
-{
-    let correctUser = 
-    {
-        email: correctEmail,
-        password: correctPassword
-    };
-    const response = await fetch("http://localhost:5678/users/login",
-    {
-        method:"post",
-        headers: {
-            "Accept":"application/json",
-            'Content-Type':"application/json"
-        },
-        body: JSON.stringify(user)
-    })
-    return await response.json();
+let correctUser = {
+ userEmail : document.querySelector("#email").value,
+ userPassword : document.querySelector("#password").value
 }
 
-const loginForm = document.querySelector("form");
-let email = document.getElementById("#email");
-let password = document.getElementById("#password");
-const validButton = document.querySelector("submit");
-
-validButton.addEventListener("click", function(event)
+function getUser(userEmail,userPassword)
 {
-    event.defaultPrevented();
-    let userMail = mail.value;
-    let userPassword = password.value;
-    let data = getCorrectUser(userMail,userPassword);
+    const loginForm = document.querySelector("form");
+    loginForm.addEventListener("submit",function(event){
 
-    if (data != null)
+    event.defaultPrevented()
+    
+    const chargeUtile = JSON.stringify(user)
+    fetch("http://localhost:5678/users/login",
+    {
+        method:"POST",
+        body: chargeUtile,
+        headers:{"Content-Type":"application/json"}
+    });
+    }
+    )
+    console.log(userEmail)
+    console.log(userPassword)
+}
+
+const validButton = document.querySelector("#submit");
+
+validButton.addEventListener("submit", function(event)
+{
+    event.defaultPrevented()
+    let data = getUser(userMail,userPassword)
+
+    if (data === CorrectUser)
     {
         console.log("ok")
-        console.log(data);
+        window.location("index.html");
     }
     else
     {
