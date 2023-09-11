@@ -1,13 +1,22 @@
-async function userConnection (){
-    await fetch ("http://localhost:5678/api/users/login",{
+async function connectUser (email,password){
+    const response = await fetch ("http://localhost:5678/api/users/login",{
         method : "POST",
-        headers:{"Content-Type":"application/json"}
-    },
-    body = JSON.stringify({
-        mail : emailValue,
-        pass : passwordValue
-    })
+        headers:
+        {"Content-Type":"application/json"},
+        body : JSON.stringify({
+            email,
+            password
+        })
+    }
     )
+    const responseData = response.json()
+    if (responseData.token) {
+        localStorage.setItem('token', responseData.token);
+        window.location.href = "./index.html";
+    } else {
+        console.error("Erreur");
+        alert("Erreur")
+    }
 }
 
 const form = document.querySelector(".login")
@@ -25,15 +34,5 @@ validButton.addEventListener("click", function(event)
     const passwordValue = pword.value
     console.log(emailValue)
     console.log(passwordValue)
-    userConnection()
-    .then((response) => response.json())
-    .then(form => {
-        if (form.token) {
-            localStorage.setItem('token', form.token);
-            window.location.href = "./index.html";
-        } else {
-            console.error("Le token n'a pas été trouvé");
-            alert("Erreur")
-        }
-        })
+    connectUser(emailValue,passwordValue)
     })
