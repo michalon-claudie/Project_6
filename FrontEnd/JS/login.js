@@ -1,43 +1,39 @@
-let correctUser = {
- userEmail : document.querySelector("#email").value,
- userPassword : document.querySelector("#password").value
-}
-
-function getUser(userEmail,userPassword)
-{
-    const loginForm = document.querySelector("form");
-    loginForm.addEventListener("submit",function(event){
-
-    event.defaultPrevented()
-    
-    const chargeUtile = JSON.stringify(user)
-    fetch("http://localhost:5678/users/login",
-    {
-        method:"POST",
-        body: chargeUtile,
+async function userConnection (){
+    await fetch ("http://localhost:5678/api/users/login",{
+        method : "POST",
         headers:{"Content-Type":"application/json"}
-    });
-    }
+    },
+    body = JSON.stringify({
+        mail : emailValue,
+        pass : passwordValue
+    })
     )
-    console.log(userEmail)
-    console.log(userPassword)
 }
 
-const validButton = document.querySelector("#submit");
+const form = document.querySelector(".login")
+const email = document.querySelector('input[type="email"]')
+const pword = document.querySelector('input[type="password"]')
+const validButton = document.querySelector('input[type="submit"]')
 
-validButton.addEventListener("submit", function(event)
+const emailValue = email.value
+const passwordValue = pword.value
+
+validButton.addEventListener("click", function(event)
 {
-    event.defaultPrevented()
-    let data = getUser(userMail,userPassword)
-
-    if (data === CorrectUser)
-    {
-        console.log("ok")
-        window.location("index.html");
-    }
-    else
-    {
-        console.log("erreur")
-        alert("Erreur dans l'identification")
-    }
-})
+    event.preventDefault()
+    const emailValue = email.value
+    const passwordValue = pword.value
+    console.log(emailValue)
+    console.log(passwordValue)
+    userConnection()
+    .then((response) => response.json())
+    .then(form => {
+        if (form.token) {
+            localStorage.setItem('token', form.token);
+            window.location.href = "./index.html";
+        } else {
+            console.error("Le token n'a pas été trouvé");
+            alert("Erreur")
+        }
+        })
+    })
