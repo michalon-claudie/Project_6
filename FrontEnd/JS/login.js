@@ -37,3 +37,5 @@ validButton.addEventListener("click", function(event)
     console.log(passwordValue)
     connectUser(emailValue,passwordValue)
 })
+
+/***User-connected***/

@@ -149,6 +149,33 @@ a:hover
 {
     color: #B1663C;
 }
+.title-modify
+{
+	display:flex;
+	justify-content: center;
+}
+
+/**modal**/
+.modal1
+{
+	width:50%;
+	height:50%;
+	justify-content: center;
+}
+.modal-button
+{
+	font-family: Work Sans;
+	font-weight:400;
+	font-size: 14px;
+	border:none;
+	margin:0;
+	padding:10px;
+}
+.modal-button i 
+{
+	padding:10px;
+	font-style: normal;
+}
 /***Filters***/
 .filters
 {

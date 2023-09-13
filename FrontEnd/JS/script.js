@@ -116,7 +116,20 @@ async function categoryGenerate()
 categoryGenerate();
 
 /***Button generated***/
+if (token){
+ const filters= document.querySelectorAll(".filters")
+ filters.remove()
+}
+/***Creating modal***/
 
+let modal = null
 
+button = document.querySelector(".modal-button")
+button.addEventListener('click', openModal)
+
+const openModal = function (e) {
+  e.preventDefault()
+
+}
 
  
