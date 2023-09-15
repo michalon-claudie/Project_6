@@ -12,6 +12,10 @@
 	<script defer src="JS/script.js"></script>
 </head>
 <body>
+<div id="blackBloc">
+	<a href="#modal1"><i class="fa-regular fa-pen-to-square"></i>Mode
+		édition</a>
+</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
@@ -19,6 +23,7 @@
 			<li>projets</li>
 			<li>contact</li>
 			<li><a href ="login.html">login</a></li>
+			<li class="logout" id="logout">logout</li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -38,45 +43,11 @@
 	<section id="portfolio">
 		<div class="title-modify">
 			<h2>Mes Projets</h2>
-			<button class="modal-button"><i class="fa-regular fa-pen-to-square"></i>Modifier</button>
+			<button class="modal-button"><i class="fa-regular fa-pen-to-square">Modifier</i></button>
 		</div>
-		<section class="modal1" aria-hidden="true" style="display: none;">
-			<h3>Galerie photo</h3>
-			<article>
-				<img src="assets/images/abajour-tahina.png" alt="abajour">
-			</article>
-			<article>
-				<img src="assets/images/appartement-paris-v.png" alt="paris-v">
-			</article>
-			<article>
-				<img src="assets/images/restaurant-sushisen-londres.png" alt="restaurant">
-			</article>
-			<article>
-				<img src="assets/images/la-balisiere.png" alt="villa">
-			</article>
-			<article>
-				<img src="assets/images/structures-thermopolis.png" alt="structure">
-			</article>
-			<article>
-				<img src="assets/images/appartement-paris-x.png" alt="paris-x">
-			</article>
-			<article>
-				<img src="assets/images/le-coteau-cassis.png" alt="le-coteau">
-			</article>
-			<article>
-				<img src="assets/images/villa-ferneze.png" alt="villa-ferneze">
-			</article>
-			<article>
-				<img src="assets/images/appartement-paris-xviii.png" alt="paris-xviii">
-			</article>
-			<article>
-				<img src="assets/images/bar-lullaby-paris.png" alt="lullaby">
-			</article>
-			<article>
-				<img src="assets/images/hotel-first-arte-new-delhi.png" alt="hotel-first-arte">
-			</article>
+		<section class="modal1" aria-hidden="true" style="display: none">
 		</section >
-		<div class="filters">
+		<div id = "filters" class="filters">
 		</div>
 		<div class="gallery">
 		</div>

@@ -116,20 +116,34 @@ async function categoryGenerate()
 categoryGenerate();
 
 /***Button generated***/
+
+const token = localStorage.getItem("token")
+const blackBloc = document.getElementById("blackBloc")
+const logout = document.getElementById("logout")
+const login = document.getElementById("login")
+
 if (token){
- const filters= document.querySelectorAll(".filters")
- filters.remove()
+  filters.style.display = "none"
+  blackBloc.style.display = "flex"
+  connectingUser()
+  login.style.display = "none";
 }
+else{
+  filters.style.display ="flex"
+  blackBloc.style.display = "none"
+  logout.style.display = "none";
+  login.style.display = "flex";
+}
+
+function connectingUser (){
+  const modifyButton =document.querySelector(".modal-button")
+  modifyButton.innerHTML="Modifier"
+  const modifyTitle = document.querySelector(".title-modify")
+
+  modifyTitle.appendChild(modifyButton)
+}
+
 /***Creating modal***/
 
-let modal = null
-
-button = document.querySelector(".modal-button")
-button.addEventListener('click', openModal)
-
-const openModal = function (e) {
-  e.preventDefault()
-
-}
 
  

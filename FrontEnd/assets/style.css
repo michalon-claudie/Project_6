@@ -177,7 +177,7 @@ a:hover
 	font-style: normal;
 }
 /***Filters***/
-.filters
+#filters
 {
 	display:flex;
 	justify-content: center;
@@ -212,7 +212,7 @@ button .activated
 	border-radius: 60px;
 	white-space: nowrap;
 }
-.filters span
+#filters span
 {
 	font-family: "Syne";
 }
