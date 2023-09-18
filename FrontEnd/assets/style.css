@@ -153,14 +153,42 @@ a:hover
 {
 	display:flex;
 	justify-content: center;
+	align-items: baseline;
 }
-
+.title-modify h2
+{
+	padding-right: 20px;
+}
+#blackBloc
+{
+	margin-left: -5.4%;
+    margin-right: -5.4%;
+	padding:20px;
+	display: flex;
+	justify-content: center;
+}
+.editionMode,#blackBloc
+{
+	color:white;
+	background-color: black;
+}
+#blackBloc i 
+{
+	background-color: black;
+}
 /**modal**/
-.modal1
+#modal1
+{
+	width:100%;
+	height:100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	display: flex;
+	justify-content: center;
+}
+.modalContent
 {
 	width:50%;
 	height:50%;
-	justify-content: center;
 }
 .modal-button
 {
@@ -170,6 +198,11 @@ a:hover
 	border:none;
 	margin:0;
 	padding:10px;
+}
+.modal-button:hover
+{
+	color: #B1663C;
+	cursor:pointer;
 }
 .modal-button i 
 {

@@ -121,29 +121,54 @@ const token = localStorage.getItem("token")
 const blackBloc = document.getElementById("blackBloc")
 const logout = document.getElementById("logout")
 const login = document.getElementById("login")
+const modifyButton =document.querySelector(".modal-button")
+modifyButton.innerHTML="Modifier"
+const modifyTitle = document.querySelector(".title-modify")
+modifyTitle.appendChild(modifyButton)
 
 if (token){
   filters.style.display = "none"
   blackBloc.style.display = "flex"
-  connectingUser()
-  login.style.display = "none";
+  login.style.display = "none"
+  modifyButton.style.display ="flex"
 }
 else{
   filters.style.display ="flex"
   blackBloc.style.display = "none"
-  logout.style.display = "none";
-  login.style.display = "flex";
+  logout.style.display = "none"
+  login.style.display = "flex"
+  modifyButton.style.display = "none";
 }
 
-function connectingUser (){
-  const modifyButton =document.querySelector(".modal-button")
-  modifyButton.innerHTML="Modifier"
-  const modifyTitle = document.querySelector(".title-modify")
-
-  modifyTitle.appendChild(modifyButton)
-}
+logout.addEventListener('click', function(){
+  if (token){
+    localStorage.removeItem("token")
+    filters.style.display ="flex"
+    blackBloc.style.display = "none"
+    logout.style.display = "none";
+    login.style.display = "flex";
+  }
+})
 
 /***Creating modal***/
 
+const openModal = document.querySelector(".modifyProject")
 
+const modal1 = document.getElementById('#modal1')
+
+  openModal.addEventListener('click',function (e){
+  e.preventDefault()
+  modal1.style.display = "flex"
+  modal1.removeAttribute("aria-hidden")
+  modal1.setAttribute("aria-modal","true")
+})
+
+const openModal1 = document.querySelector(".editionMode")
+
+  openModal1.addEventListener('click',function (e){
+  e.preventDefault()
+  modal1.style.display = "flex"
+  modal1.removeAttribute("aria-hidden")
+  modal1.setAttribute("aria-modal","true")
+})
  

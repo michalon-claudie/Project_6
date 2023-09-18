@@ -8,12 +8,13 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
+	<script src="https://kit.fontawesome.com/c6336fc56b.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="./assets/style.css">
 	<script defer src="JS/script.js"></script>
 </head>
 <body>
 <div id="blackBloc">
-	<a href="#modal1"><i class="fa-regular fa-pen-to-square"></i>Mode
+	<a href="#modal1" class="editionMode"><i class="fa-regular fa-pen-to-square"></i>Mode
 		édition</a>
 </div>
 <header>
@@ -22,7 +23,7 @@
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li><a href ="login.html">login</a></li>
+			<li id="login"><a href ="login.html">login</a></li>
 			<li class="logout" id="logout">logout</li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
@@ -43,9 +44,16 @@
 	<section id="portfolio">
 		<div class="title-modify">
 			<h2>Mes Projets</h2>
-			<button class="modal-button"><i class="fa-regular fa-pen-to-square">Modifier</i></button>
+			<a href="#modal1" class="modifyProject">
+				<i class="fa-regular fa-pen-to-square"></i>
+				<button class="modal-button"></button>
+			</a>
 		</div>
-		<section class="modal1" aria-hidden="true" style="display: none">
+		<section id="modal1" aria-hidden="true" aria-modal="false" style="display: none">
+			<div class="modalContent">
+				<div class="modalImg">
+				</div>
+			</div>
 		</section >
 		<div id = "filters" class="filters">
 		</div>
