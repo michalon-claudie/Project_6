@@ -121,10 +121,12 @@ const token = localStorage.getItem("token")
 const blackBloc = document.getElementById("blackBloc")
 const logout = document.getElementById("logout")
 const login = document.getElementById("login")
-const modifyButton =document.querySelector(".modal-button")
-modifyButton.innerHTML="Modifier"
+const modifyButton =document.querySelector(".modifyProject")
+const modalButton = document.querySelector(".modal-button")
+modalButton.innerHTML="Modifier"
 const modifyTitle = document.querySelector(".title-modify")
 modifyTitle.appendChild(modifyButton)
+modifyButton.appendChild(modalButton)
 
 if (token){
   filters.style.display = "none"
@@ -145,30 +147,20 @@ logout.addEventListener('click', function(){
     localStorage.removeItem("token")
     filters.style.display ="flex"
     blackBloc.style.display = "none"
-    logout.style.display = "none";
-    login.style.display = "flex";
+    logout.style.display = "none"
+    login.style.display = "flex"
+    modifyButton.style.display = "none"
   }
 })
 
 /***Creating modal***/
 
-const openModal = document.querySelector(".modifyProject")
+const openModal = document.querySelectorAll("#openModal")
 
-const modal1 = document.getElementById('#modal1')
+const modal1 = document.querySelector(".modal")
 
-  openModal.addEventListener('click',function (e){
-  e.preventDefault()
-  modal1.style.display = "flex"
-  modal1.removeAttribute("aria-hidden")
-  modal1.setAttribute("aria-modal","true")
-})
+openModal.forEach (open => open.addEventListener('click',toggleModal))
 
-const openModal1 = document.querySelector(".editionMode")
-
-  openModal1.addEventListener('click',function (e){
-  e.preventDefault()
-  modal1.style.display = "flex"
-  modal1.removeAttribute("aria-hidden")
-  modal1.setAttribute("aria-modal","true")
-})
- 
+function toggleModal(){
+  modal1.classList.toggle("active")
+}

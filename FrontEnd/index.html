@@ -13,10 +13,53 @@
 	<script defer src="JS/script.js"></script>
 </head>
 <body>
-<div id="blackBloc">
-	<a href="#modal1" class="editionMode"><i class="fa-regular fa-pen-to-square"></i>Mode
-		édition</a>
-</div>
+	<section id="modal1" class="modal">
+		<div class="overlayModal"></div>
+		<div class="modalContent">
+			<button class="closeModal">X</button>
+			<h2>Galerie Photo</h2>
+			<div class="modalGallery">
+				<figure>
+					<img src="assets/images/abajour-tahina.png" alt="Abajour Tahina" />
+				</figure>
+				<figure>
+					<img src="assets/images/appartement-paris-v.png" alt="Appartement Paris V"/>
+				</figure>
+				<figure>
+					<img src="assets/images/restaurant-sushisen-londres.png" alt="Restaurant Sushisen - Londres"/>
+				</figure>
+				<figure>
+					<img src="assets/images/la-balisiere.png" alt="Villa “La Balisiere” - Port Louis"/>
+				  </figure>
+				  <figure>
+					<img src="assets/images/structures-thermopolis.png" alt="Structures Thermopolis"/>
+				  </figure>
+				  <figure>
+					<img src="assets/images/appartement-paris-x.png" alt="Appartement Paris X"/>
+				  </figure>
+				  <figure>
+					<img src="assets/images/le-coteau-cassis.png" alt="Pavillon “Le coteau” - Cassis"/>
+				  </figure>
+				  <figure>
+					<img src="assets/images/villa-ferneze.png" alt="Villa Ferneze - Isola d’Elba"/>
+				  </figure>
+				  <figure>
+					<img src="assets/images/appartement-paris-xviii.png" alt="Appartement Paris XVIII"/>
+				  </figure>
+				  <figure>
+					<img src="assets/images/bar-lullaby-paris.png" alt="Bar “Lullaby” - Paris"/>
+				  </figure>
+				  <figure>
+					<img
+					  src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi"/>
+				  </figure>
+			</div>
+		</div>
+	</section>
+	<div id="blackBloc">
+		<a href="#modal1" class="editionMode" id="openModal"><i class="fa-regular fa-pen-to-square"></i>Mode
+			édition</a>
+	</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
@@ -44,17 +87,11 @@
 	<section id="portfolio">
 		<div class="title-modify">
 			<h2>Mes Projets</h2>
-			<a href="#modal1" class="modifyProject">
+			<a href="#modal1" class="modifyProject" id="openModal">
 				<i class="fa-regular fa-pen-to-square"></i>
 				<button class="modal-button"></button>
 			</a>
 		</div>
-		<section id="modal1" aria-hidden="true" aria-modal="false" style="display: none">
-			<div class="modalContent">
-				<div class="modalImg">
-				</div>
-			</div>
-		</section >
 		<div id = "filters" class="filters">
 		</div>
 		<div class="gallery">

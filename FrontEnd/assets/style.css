@@ -152,8 +152,7 @@ a:hover
 .title-modify
 {
 	display:flex;
-	justify-content: center;
-	align-items: baseline;
+	justify-content: center
 }
 .title-modify h2
 {
@@ -176,19 +175,75 @@ a:hover
 {
 	background-color: black;
 }
-/**modal**/
-#modal1
+.modifyProject
 {
-	width:100%;
-	height:100%;
+	align-items: baseline;
+}
+/**modal**/
+.modal
+{
+	width:100vw;
+	height:100vh;
+	display: none;
+	position:fixed;
+	margin-top: 0;
+	top:0;
+	margin-left: -5.4%;
+	background-color: transparent;
+}
+.modal.active
+{
+	display: block;
+}
+.overlayModal
+{
+	position: absolute;
 	background-color: rgba(0, 0, 0, 0.3);
-	display: flex;
-	justify-content: center;
+	width: 100%;
+    height: 100%;
+	margin-right: -5.4%;
 }
 .modalContent
 {
-	width:50%;
+	position:absolute;
+	max-width: 630px;
+	max-height:688px;
 	height:50%;
+	width:50%;
+	transform: translate(-50%,-50%);
+	left:50%;
+	top:40%;
+}
+.modalContent button 
+{
+	margin:0;
+	padding:5px;
+	border:none;
+}
+.modalContent h2 
+{
+	font-family: Work Sans;
+	font-weight:400;
+	font-size:26px;
+	color:black;
+	text-align: center;
+}
+/***modalGallery content */
+.modalGallery
+{
+	display:grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	margin:50px;
+}
+.modalGallery figure 
+{
+	display:flex;
+	width:61%;
+}
+.modalGallery img 
+{
+	width:76px;
+	height:102px;
 }
 .modal-button
 {
@@ -204,10 +259,9 @@ a:hover
 	color: #B1663C;
 	cursor:pointer;
 }
-.modal-button i 
+.closeModal
 {
-	padding:10px;
-	font-style: normal;
+	cursor: pointer;
 }
 /***Filters***/
 #filters
