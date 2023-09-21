@@ -164,3 +164,14 @@ openModal.forEach (open => open.addEventListener('click',toggleModal))
 function toggleModal(){
   modal1.classList.toggle("active")
 }
+
+/***delete projects***/
+
+const trash = document.createElement("i")
+trash.setAttribute("fa-solid" ," fa-trash-can")
+
+const cardsGallery = document.querySelectorAll("figure")
+const modalGallery = document.querySelector(".modalGallery")
+
+modalGallery.appendChild(cardsGallery)
+cardsGallery.appendChild(trash)

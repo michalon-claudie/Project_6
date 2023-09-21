@@ -31,6 +31,11 @@ const passwordValue = pword.value
 validButton.addEventListener("click", function(event)
 {
     event.preventDefault()
+    const isValid = form.checkValidity()
+    if(!isValid){
+        alert("Les champs renseignés sont incorrectes")
+        return false
+    }
     const emailValue = email.value
     const passwordValue = pword.value
     console.log(emailValue)
