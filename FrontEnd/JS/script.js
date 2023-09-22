@@ -155,6 +155,46 @@ logout.addEventListener('click', function(){
 
 /***Creating modal***/
 
+function CreateModal(data)
+{
+  const modalGallery = document.querySelector(".modalGallery");
+
+  removeAllChildren(modalGallery)
+
+    for (let i = 0; i < data.length ; i ++) 
+    {  
+        const worksIndex = data[i];
+
+        const figure = document.createElement("figure");
+
+        const imageWorks = document.createElement("img");
+        imageWorks.src = worksIndex.imageUrl;
+
+        modalGallery.appendChild(figure);
+        figure.appendChild(imageWorks);
+    }
+}
+
+async function modalGenerate()
+{
+  await urlFetch
+  const response = await fetch('http://localhost:5678/api/users/works')
+  const responseModal = await response.json()
+    if (responseModal.ok) 
+    { 
+      console.table(data)
+      console.log(data)
+      allProject = data;
+      CreateModal(data);
+    }
+    else
+    {
+      alert ('Error')
+      console.log('error')
+    }
+}
+
+/***make the modal appear on click*/
 const openModal = document.querySelectorAll("#openModal")
 
 const modal1 = document.querySelector(".modal")
@@ -163,15 +203,26 @@ openModal.forEach (open => open.addEventListener('click',toggleModal))
 
 function toggleModal(){
   modal1.classList.toggle("active")
+  modalGenerate()
 }
 
 /***delete projects***/
 
-const trash = document.createElement("i")
-trash.setAttribute("fa-solid" ," fa-trash-can")
+const trash = document.querySelectorAll(".fa-trash-can")
 
-const cardsGallery = document.querySelectorAll("figure")
-const modalGallery = document.querySelector(".modalGallery")
+trash.forEach (goTrash => goTrash.addEventListener('click',fetchDelete))
 
-modalGallery.appendChild(cardsGallery)
-cardsGallery.appendChild(trash)
+async function fetchDelete(imageId) {
+  const token = localStorage.getItem("token")
+  const response = await fetch(`http://localhost:5678/api/works/imageId`, {
+    method: "DELETE",
+    headers: {
+        Authorization: `Bearer ${token}`,
+    },
+  })
+    if (response.ok) {
+        console.log("Image supprimée avec succès");
+    } else {
+        alert("Erreur lors de la suppression de l'image");
+    }
+  }

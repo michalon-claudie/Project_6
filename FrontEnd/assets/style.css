@@ -188,7 +188,7 @@ a:hover
 	position:fixed;
 	margin-top: 0;
 	top:0;
-	margin-left: -5.4%;
+	margin-left: -4.9%;
 	background-color: transparent;
 }
 .modal.active
@@ -268,6 +268,10 @@ a:hover
 	justify-content: end;
 	padding:10px;
 }
+.modalGallery figure  
+{
+	display: flex;
+}
 /***Filters***/
 #filters
 {
@@ -313,6 +317,13 @@ button .activated
 #filters span
 {
 	font-family: "Syne";
+}
+.fa-trash-can
+{
+	position:absolute;
+	background-color: black;
+    color: white;
+    padding: 5px;
 }
 /***end-filters***/
 #contact {
