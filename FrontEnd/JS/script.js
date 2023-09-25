@@ -168,16 +168,21 @@ function CreateModal(data)
     const imageWorks = document.createElement("img");
     imageWorks.src = worksIndex.imageUrl;
 
+    const trash = document.createElement("i");
+    trash.setAttribute("class", "fa-solid fa-trash-can");
+    trash.setAttribute("id", "trash");
+
     figure.appendChild(imageWorks);
+    figure.appendChild(trash)
     modalGallery.appendChild(figure);
   }
 }
 
 async function modalGenerate() {
-  const response = await urlFetch;
-  const responseModal = await response.json();
-  if (responseModal.ok) {
-    CreateModal(responseModal);
+  const response = await fetch("http://localhost:5678/api/works")
+  const worksList = await response.json();
+  if (response.ok) {
+    CreateModal(worksList);
   } else {
     alert("Error");
     console.log("error");
@@ -208,13 +213,13 @@ function closeModal(){
 
 /***delete projects***/
 
-const trash = document.querySelectorAll(".fa-trash-can")
+const trashProject = document.querySelectorAll(".fa-trash-can")
 
-trash.forEach (goTrash => goTrash.addEventListener('click',fetchDelete))
+trashProject.forEach (goTrash => goTrash.addEventListener('click',fetchDelete))
 
-async function fetchDelete(imageId) {
+async function fetchDelete(id) {
   const token = localStorage.getItem("token")
-  const response = await fetch(`http://localhost:5678/api/works/imageId`, {
+  const response = await fetch('http://localhost:5678/api/works/{id}', {
     method: "DELETE",
     headers: {
         Authorization: `Bearer ${token}`,
