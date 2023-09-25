@@ -159,20 +159,18 @@ function CreateModal(data)
 {
   const modalGallery = document.querySelector(".modalGallery");
 
-  removeAllChildren(modalGallery)
+  for (let i = 0; i < data.length ; i ++) 
+  {  
+    const worksIndex = data[i];
 
-    for (let i = 0; i < data.length ; i ++) 
-    {  
-      const worksIndex = data[i];
+    const figure = document.createElement("figure");
 
-      const figure = document.createElement("figure");
+    const imageWorks = document.createElement("img");
+    imageWorks.src = worksIndex.imageUrl;
 
-      const imageWorks = document.createElement("img");
-      imageWorks.src = worksIndex.imageUrl;
-
-      figure.appendChild(imageWorks);
-      modalGallery.appendChild(figure);
-    }
+    figure.appendChild(imageWorks);
+    modalGallery.appendChild(figure);
+  }
 }
 
 async function modalGenerate() {
@@ -194,8 +192,18 @@ const modal1 = document.querySelector(".modal")
 openModal.forEach (open => open.addEventListener('click',toggleModal))
 
 function toggleModal(){
-  modal1.classList.toggle("active");
+  modal1.style.display ="flex";
   modalGenerate();
+}
+
+const closeCross = document.querySelector(".closeModal")
+const overlay = document.querySelector(".overlayModal")
+
+closeCross.addEventListener('click', closeModal)
+overlay.addEventListener('click',closeModal)
+
+function closeModal(){
+  modal1.style.display="none";
 }
 
 /***delete projects***/
