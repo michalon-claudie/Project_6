@@ -163,21 +163,20 @@ function CreateModal(data)
 
     for (let i = 0; i < data.length ; i ++) 
     {  
-        const worksIndex = data[i];
+      const worksIndex = data[i];
 
-        const figure = document.createElement("figure");
+      const figure = document.createElement("figure");
 
-        const imageWorks = document.createElement("img");
-        imageWorks.src = worksIndex.imageUrl;
+      const imageWorks = document.createElement("img");
+      imageWorks.src = worksIndex.imageUrl;
 
-        figure.appendChild(imageWorks);
-        modalGallery.appendChild(figure);
+      figure.appendChild(imageWorks);
+      modalGallery.appendChild(figure);
     }
 }
 
 async function modalGenerate() {
-  await urlFetch;
-  const response = await fetch('http://localhost:5678/api/works');
+  const response = await urlFetch;
   const responseModal = await response.json();
   if (responseModal.ok) {
     CreateModal(responseModal);
@@ -195,8 +194,8 @@ const modal1 = document.querySelector(".modal")
 openModal.forEach (open => open.addEventListener('click',toggleModal))
 
 function toggleModal(){
-  modal1.classList.toggle("active")
-  modalGenerate()
+  modal1.classList.toggle("active");
+  modalGenerate();
 }
 
 /***delete projects***/
