@@ -170,28 +170,21 @@ function CreateModal(data)
         const imageWorks = document.createElement("img");
         imageWorks.src = worksIndex.imageUrl;
 
-        modalGallery.appendChild(figure);
         figure.appendChild(imageWorks);
+        modalGallery.appendChild(figure);
     }
 }
 
-async function modalGenerate()
-{
-  await urlFetch
-  const response = await fetch('http://localhost:5678/api/users/works')
-  const responseModal = await response.json()
-    if (responseModal.ok) 
-    { 
-      console.table(data)
-      console.log(data)
-      allProject = data;
-      CreateModal(data);
-    }
-    else
-    {
-      alert ('Error')
-      console.log('error')
-    }
+async function modalGenerate() {
+  await urlFetch;
+  const response = await fetch('http://localhost:5678/api/works');
+  const responseModal = await response.json();
+  if (responseModal.ok) {
+    CreateModal(responseModal);
+  } else {
+    alert("Error");
+    console.log("error");
+  }
 }
 
 /***make the modal appear on click*/
