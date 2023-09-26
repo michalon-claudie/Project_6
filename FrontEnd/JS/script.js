@@ -214,18 +214,20 @@ function closeModal(){
 /***delete projects***/
 
 const trashProject = document.querySelectorAll(".fa-trash-can")
+const allFigure = document.querySelectorAll("figure")
 
 trashProject.forEach (goTrash => goTrash.addEventListener('click',fetchDelete))
 
-async function fetchDelete(id) {
+async function fetchDelete() {
   const token = localStorage.getItem("token")
   const response = await fetch('http://localhost:5678/api/works/{id}', {
     method: "DELETE",
     headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`
     },
   })
     if (response.ok) {
+        figure.remove;
         console.log("Image supprimée avec succès");
     } else {
         alert("Erreur lors de la suppression de l'image");
