@@ -214,7 +214,7 @@ function closeModal(){
 /***delete projects***/
 
 const trashProject = document.querySelectorAll(".fa-trash-can")
-const allFigure = document.querySelectorAll("figure")
+const imageProject = document.querySelector("img");
 
 trashProject.forEach (goTrash => goTrash.addEventListener('click',fetchDelete))
 
@@ -223,13 +223,32 @@ async function fetchDelete() {
   const response = await fetch('http://localhost:5678/api/works/{id}', {
     method: "DELETE",
     headers: {
-        Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`
     },
   })
     if (response.ok) {
-        figure.remove;
+        imageProject.remove()
+        trashProject.remove()
         console.log("Image supprimée avec succès");
     } else {
         alert("Erreur lors de la suppression de l'image");
     }
   }
+/***PostWorks***/
+
+const addProject = document.querySelector(".addButton")
+const modalContent = document.querySelector(".modalContent")
+const modal2= document.querySelector(".modal2")
+
+addProject.addEventListener('click', openModalAdd)
+
+function openModalAdd() {
+  modalContent.style.display ="none";
+  modal2.style.display ="flex";
+}
+
+/***FormPostWorks***/
+
+const addImgButton = document.getElementById("#addImgButton")
+
+addImgButton.addEventListener('click',getElementById("#file"))
