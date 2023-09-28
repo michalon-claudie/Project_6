@@ -213,13 +213,12 @@ function closeModal(){
 
 /***delete projects***/
 
-const trashProject = document.querySelector(".fa-trash-can")
+const trashProject = document.querySelectorAll(".fa-trash-can")
 const imageProject = document.querySelector("img");
 
-trashProject.addEventListener('click',fetchDelete)
+trashProject.forEach (goTrash => goTrash.addEventListener('click',fetchDelete))
 
-async function fetchDelete(data) {
-  const worksIndex= data[i];
+async function fetchDelete() {
   const token = localStorage.getItem("token")
   const response = await fetch('http://localhost:5678/api/works/{id}', {
     method: "DELETE",
@@ -228,8 +227,8 @@ async function fetchDelete(data) {
     },
   })
     if (response.ok) {
-        worksIndex.imageProject.remove()
-        worksIndex.trashProject.remove()
+        imageProject.remove()
+        trashProject.remove()
         console.log("Image supprimée avec succès");
     } else {
         alert("Erreur lors de la suppression de l'image");
