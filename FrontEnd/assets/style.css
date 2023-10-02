@@ -51,20 +51,28 @@ table {
 }
 /** end reset css**/
 body {
-	max-width: 1140px;
-	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0;
+	margin: 50px 5%;
+}
+main
+{
+	margin:auto 8%;
 }
 section {
 	margin: 50px 0;
 }
-
+#portfolio
+{
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 h1{
 	display: flex;
 	flex-direction: column;
@@ -129,7 +137,7 @@ li:hover {
 	margin-bottom: 1em;
 }
 .gallery {
-	width: 100%;
+	width: 90%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
@@ -152,7 +160,8 @@ a:hover
 .title-modify
 {
 	display:flex;
-	justify-content: center
+	justify-content: center;
+	margin: 5%;
 }
 .title-modify h2
 {
@@ -160,8 +169,6 @@ a:hover
 }
 #blackBloc
 {
-	margin-left: -5.4%;
-    margin-right: -5.4%;
 	padding:20px;
 	display: flex;
 	justify-content: center;
@@ -188,7 +195,6 @@ a:hover
 	position:fixed;
 	margin-top: 0;
 	top:0;
-	margin-left: -4.9%;
 	background-color: transparent;
 }
 .modal.active
@@ -208,9 +214,9 @@ a:hover
 	position:absolute;
 	max-width: 630px;
 	max-height:688px;
-	width:45%;
+	width:50%;
 	display: flex;
-	transform: translate(62%, 0%);
+	transform: translate(50%, 0%);
 }
 .modalContent
 {
@@ -233,7 +239,10 @@ a:hover
 	font-size:26px;
 	color:black;
 	text-align: center;
-	margin:3%;
+}
+.modalContent h2
+{
+	margin:2%;
 }
 /***modalGallery content */
 .modalGallery
@@ -242,7 +251,7 @@ a:hover
 	flex-wrap: wrap;
 	margin:50px;
 	row-gap: 20px;
-    column-gap: 5px;
+    column-gap: 10px;
 	margin-left: 18%;
 	margin-right: 18%;
 	margin-top: 2%;
@@ -252,7 +261,7 @@ a:hover
 }
 .modalGallery img 
 {
-	width:66px;
+	width:71px;
 	height:96px;
 }
 .modal-button
@@ -263,6 +272,7 @@ a:hover
 	border:none;
 	margin:0;
 	padding:10px;
+	background-color: #fffef8;
 }
 .modal-button:hover
 {
@@ -281,11 +291,30 @@ a:hover
 	display: flex;
 	position: relative;
 }
+.trash
+{
+	position: absolute;
+    padding: 5px;
+    right: 5px;
+	top: 5px;
+    margin: 0;
+    border-radius: 5px;
+    color: black;
+    background-color: black;
+    font-weight: 100;
+    border: none;
+	height: auto;
+}
+.fa-trash-can 
+{
+	background-color: black;
+	color:white;
+}
 /***modal2***/
 .modal2
 {
 	flex-direction: column;
-	width:45%;
+	width:50%;
 }
 .modal2 form
 {
@@ -301,6 +330,7 @@ a:hover
 	display: flex;
     flex-direction: column;
     justify-content: center;
+	align-items: center;
 	background-color : #E8F1F7;
 	border-radius : 3px;
 	height: 169px;
@@ -312,9 +342,8 @@ a:hover
 }
 .addPicture button
 {
-	margin:5px;
+	margin:3%;
 	width:54%;
-	margin:auto;
 	background-color: #CBD6DC;
 	font-family:"Work Sans";
 	font-size: 14px;
@@ -327,6 +356,10 @@ a:hover
 	text-align: center;
 	font-size:68px;
 	color:#B9C5CC;
+}
+.addPicture input 
+{
+	display:none;
 }
 .details 
 {
@@ -349,17 +382,32 @@ a:hover
 {
 	display: flex;
 	justify-content: space-between;
+	align-items: baseline;
+}
+.closeModal,.fa-arrow-left
+{
+	color:black;
+	margin:0px;
+	padding:4%;
 }
 .addCategory
 {
 	padding-bottom: 10px;
 	border-bottom: 1px solid #B3B3B3;
 }
+#btnValider 
+{
+	margin:10px 10px;
+}
 /***Filters***/
 #filters
 {
 	display:flex;
 	justify-content: center;
+}
+#filters button
+{
+	margin:5px 10px 40px 10px;
 }
 button,.addButton
 {
@@ -400,14 +448,6 @@ button .activated
 #filters span
 {
 	font-family: "Syne";
-}
-.fa-trash-can
-{
-	position:absolute;
-	background-color: black;
-    color: white;
-    padding: 5px;
-	right:0%;
 }
 
 /***end-filters***/

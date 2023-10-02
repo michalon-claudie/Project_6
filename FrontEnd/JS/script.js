@@ -1,52 +1,46 @@
-const urlFetch = fetch ('http://localhost:5678/api/works');
+const urlFetch = fetch('http://localhost:5678/api/works');
 let allProject = [];
 
 function removeAllChildren(node) {
-  node.innerHTML=''
+  node.innerHTML = ''
 }
 
-function galleryCreate(data)
-{
-  const gallery = document.querySelector(".gallery");
+const gallery = document.querySelector(".gallery");
+function galleryCreate(data) {
 
   removeAllChildren(gallery)
 
-    for (let i = 0; i < data.length ; i ++) 
-    {  
-        const worksIndex = data[i];
+  for (let i = 0; i < data.length; i++) {
+    const worksIndex = data[i];
 
-        const divProject = document.createElement("figure");
+    const divProject = document.createElement("figure");
 
-        const imageWorks = document.createElement("img");
-        imageWorks.src = worksIndex.imageUrl;
+    const imageWorks = document.createElement("img");
+    imageWorks.src = worksIndex.imageUrl;
 
-        const textWorks = document.createElement("figcaption");
-        textWorks.innerText = worksIndex.title;
+    const textWorks = document.createElement("figcaption");
+    textWorks.innerText = worksIndex.title;
 
-        gallery.appendChild(divProject);
-        divProject.appendChild(imageWorks);
-        divProject.appendChild(textWorks);
-    }
+    gallery.appendChild(divProject);
+    divProject.appendChild(imageWorks);
+    divProject.appendChild(textWorks);
+  }
 }
 
-async function urlgenerate()
-{
+async function urlgenerate() {
   await urlFetch
-    .then ((response) => 
-    {
-    if (response.ok) return response.json()
+    .then((response) => {
+      if (response.ok) return response.json()
     })
-    .then ((data) =>
-    {
+    .then((data) => {
       console.table(data);
       console.log(data);
       allProject = data;
       galleryCreate(data);
     }
     )
-    .catch ((error) => 
-    {
-      alert ('Error')
+    .catch((error) => {
+      alert('Error')
       console.log('error')
     }
     )
@@ -56,61 +50,54 @@ urlgenerate();
 
 /***Add category and filters***/
 
-const categoryFetch = fetch ("http://localhost:5678/api/categories");
+const categoryFetch = fetch("http://localhost:5678/api/categories");
 
 const allButton = document.createElement("button");
 const filters = document.querySelector(".filters")
-const buttonText= document.createElement("span");
+const buttonText = document.createElement("span");
 buttonText.innerHTML = "Tous";
 
 filters.appendChild(allButton)
 allButton.appendChild(buttonText)
-allButton.addEventListener('click', function ()
-{
+allButton.addEventListener('click', function () {
   galleryCreate(allProject)
 });
 
-function FiltersGenerate(data)
-{  
-  for (let i = 0; i < data.length ; i++)
-    { 
-      const filters = document.querySelector(".filters");
+function FiltersGenerate(data) {
+  for (let i = 0; i < data.length; i++) {
+    const filters = document.querySelector(".filters");
 
-      const category = data[i];
+    const category = data[i];
 
-      const button = document.createElement("button");
-      button.id = "filters-"+category.name;
+    const button = document.createElement("button");
+    button.id = "filters-" + category.name;
 
-      const buttonText = document.createElement("span");
-      buttonText.innerHTML = category.name;
+    const buttonText = document.createElement("span");
+    buttonText.innerHTML = category.name;
 
-      filters.appendChild(button);
-      button.appendChild(buttonText);
+    filters.appendChild(button);
+    button.appendChild(buttonText);
 
-      button.addEventListener("click", function()
-      {
-        const FilteredProject = allProject.filter(
-          (project) => project.categoryId === category.id
-        )
-        console.log(FilteredProject);
-        galleryCreate(FilteredProject);
-      });
-      
-    }
+    button.addEventListener("click", function () {
+      const FilteredProject = allProject.filter(
+        (project) => project.categoryId === category.id
+      )
+      console.log(FilteredProject);
+      galleryCreate(FilteredProject);
+    });
+
+  }
 }
 
-async function categoryGenerate()
-{
+async function categoryGenerate() {
   await categoryFetch
-  .then ((response) => 
-  {
-  if (response.ok) return response.json()
-  })
-  .then ((data) =>
-  {
-    console.log(data);
-    FiltersGenerate(data);
-  })
+    .then((response) => {
+      if (response.ok) return response.json()
+    })
+    .then((data) => {
+      console.log(data);
+      FiltersGenerate(data);
+    })
 };
 
 categoryGenerate();
@@ -121,31 +108,31 @@ const token = localStorage.getItem("token")
 const blackBloc = document.getElementById("blackBloc")
 const logout = document.getElementById("logout")
 const login = document.getElementById("login")
-const modifyButton =document.querySelector(".modifyProject")
+const modifyButton = document.querySelector(".modifyProject")
 const modalButton = document.querySelector(".modal-button")
-modalButton.innerHTML="Modifier"
+modalButton.innerHTML = "Modifier"
 const modifyTitle = document.querySelector(".title-modify")
 modifyTitle.appendChild(modifyButton)
 modifyButton.appendChild(modalButton)
 
-if (token){
+if (token) {
   filters.style.display = "none"
   blackBloc.style.display = "flex"
   login.style.display = "none"
-  modifyButton.style.display ="flex"
+  modifyButton.style.display = "flex"
 }
-else{
-  filters.style.display ="flex"
+else {
+  filters.style.display = "flex"
   blackBloc.style.display = "none"
   logout.style.display = "none"
   login.style.display = "flex"
   modifyButton.style.display = "none";
 }
 
-logout.addEventListener('click', function(){
-  if (token){
+logout.addEventListener('click', function () {
+  if (token) {
     localStorage.removeItem("token")
-    filters.style.display ="flex"
+    filters.style.display = "flex"
     blackBloc.style.display = "none"
     logout.style.display = "none"
     login.style.display = "flex"
@@ -154,13 +141,11 @@ logout.addEventListener('click', function(){
 })
 
 /***Creating modal***/
+const modalGallery = document.querySelector(".modalGallery");
 
-function CreateModal(data)
-{
-  const modalGallery = document.querySelector(".modalGallery");
+function CreateModal(data) {
 
-  for (let i = 0; i < data.length ; i ++) 
-  {  
+  for (let i = 0; i < data.length; i++) {
     const worksIndex = data[i];
 
     const figure = document.createElement("figure");
@@ -168,13 +153,15 @@ function CreateModal(data)
     const imageWorks = document.createElement("img");
     imageWorks.src = worksIndex.imageUrl;
 
-    const trash = document.createElement("i");
-    trash.setAttribute("class", "fa-solid fa-trash-can");
-    trash.setAttribute("id", "trash");
-
-    figure.appendChild(imageWorks);
-    figure.appendChild(trash)
+    const trash = document.createElement("button");
+    trash.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
+    trash.classList.add("trash");
+    trash.setAttribute("data-id", worksIndex.id)
+    trash.addEventListener('click', function () {
+      fetchDelete(worksIndex.id)
+    })
     modalGallery.appendChild(figure);
+    figure.append(imageWorks, trash);
   }
 }
 
@@ -182,6 +169,7 @@ async function modalGenerate() {
   const response = await fetch("http://localhost:5678/api/works")
   const worksList = await response.json();
   if (response.ok) {
+    removeAllChildren(modalGallery);
     CreateModal(worksList);
   } else {
     alert("Error");
@@ -194,47 +182,56 @@ const openModal = document.querySelectorAll("#openModal")
 
 const modal1 = document.querySelector(".modal")
 
-openModal.forEach (open => open.addEventListener('click',toggleModal))
+openModal.forEach(open => open.addEventListener('click', toggleModal))
 
-function toggleModal(){
-  modal1.style.display ="flex";
+function toggleModal() {
+  modal1.style.display = "flex";
+  modalContent.style.display="flex";
+  modal2.style.display="none";
   modalGenerate();
 }
 
-const closeCross = document.querySelector(".closeModal")
+const closeCross = document.querySelectorAll(".closeModal")
 const overlay = document.querySelector(".overlayModal")
 
-closeCross.addEventListener('click', closeModal)
-overlay.addEventListener('click',closeModal)
+closeCross.forEach(close =>close.addEventListener('click', closeModal))
+overlay.addEventListener('click', closeModal)
 
-function closeModal(){
-  modal1.style.display="none";
+function closeModal() {
+  modal1.style.display = "none";
 }
 
 /***delete projects***/
 
-const trashProject = document.querySelectorAll(".fa-trash-can")
-const imageProject = document.querySelector("img");
-
-trashProject.forEach (goTrash => goTrash.addEventListener('click',fetchDelete))
-
-async function fetchDelete() {
+async function fetchDelete(id) {
   const token = localStorage.getItem("token")
-  const response = await fetch('http://localhost:5678/api/works/{id}', {
+  const response = await fetch(`http://localhost:5678/api/works/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`
     },
   })
-    if (response.ok) {
-        imageProject.remove()
-        trashProject.remove()
-        console.log("Image supprimée avec succès");
-    } else {
-        alert("Erreur lors de la suppression de l'image");
-    }
+  if (response.ok) {
+    const updatedProjects = allProject.filter((project) => project.id !== id);
+    galleryCreate(updatedProjects);
+    modalGenerate()
+    console.log("Image supprimée avec succès");
+  } else {
+    alert("Erreur lors de la suppression de l'image");
   }
-/***PostWorks***/
+}
+
+/***Modal2 opened*/
+
+const arrow = document.querySelector(".fa-arrow-left")
+arrow.addEventListener('click',goback)
+
+function goback(){
+  modalContent.style.display="flex";
+  modal2.style.display = "none";
+}
+
+/***PostWorks-openModal2***/
 
 const addProject = document.querySelector(".addButton")
 const modalContent = document.querySelector(".modalContent")
@@ -248,7 +245,23 @@ function openModalAdd() {
 }
 
 /***FormPostWorks***/
+const btnValid = document.getElementById("#btnValider")
+btnValid.addEventListener('submit', fetchAdd)
 
-const addImgButton = document.getElementById("#addImgButton")
-
-addImgButton.addEventListener('click',getElementById("#file"))
+async function fetchAdd() {
+  const token = localStorage.getItem("token")
+  const pictureValue = document.getElementById("#file")
+  const titleValue = document.getElementById("#title")
+  const categoryValue = document.getElementById("#category")
+  const response = await fetch(`http://localhost:5678/api/works`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    body: formData
+  })
+  const formData= new formData();
+  formData.append("category",categoryValue)
+  formData.append("title",titleValue)
+  formData.append("picture",pictureValue)
+}

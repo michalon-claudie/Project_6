@@ -16,15 +16,15 @@
 	<section id="modal1" class="modal">
 		<div class="overlayModal"></div>
 		<div class="modalContent">
-			<button class="closeModal">X</button>
+			<button class="closeModal"><i class="fa-solid fa-xmark"></i></button>
 			<h2>Galerie Photo</h2>
 			<div class="modalGallery"></div>	
 			<button class="addButton">Ajouter une photo</button>
 		</div>
 		<div class="modal2">
 			<div class="iconeDiv">
-				<div class="cross">X</div>
 				<i class="fa-solid fa-arrow-left"></i>
+				<button class="closeModal"><i class="fa-solid fa-xmark"></i></button>
 			</div>
 			<h2>Ajout Photo</h2>
 			<form>
@@ -36,10 +36,10 @@
 				</div>
 				<div class="addTitle">
 					<label for="title" class="label">Titre</label>
-        			<input type="text" id="title" name="title">
+        			<input type="text" id="title" name="title" class="titleProject">
 				</div>
 				<div class="addCategory">
-					<label for="category" class="label">Catégorie</label>
+					<label for="category" class="label" id="category">Catégorie</label>
 					<select id="category" name="category">
 						<option class="labelCategory">Veuillez choisir une catégorie</option>
 					</select>
