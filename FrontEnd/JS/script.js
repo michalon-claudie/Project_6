@@ -102,7 +102,7 @@ async function categoryGenerate() {
 
 categoryGenerate();
 
-/***Button generated***/
+/***Button-filters generated***/
 
 const token = localStorage.getItem("token")
 const blackBloc = document.getElementById("blackBloc")
@@ -178,11 +178,11 @@ async function modalGenerate() {
 }
 
 /***make the modal appear on click*/
-const openModal = document.querySelectorAll("#openModal")
+const openModal = document.querySelectorAll('[data-action="openModal"]');
 
 const modal1 = document.querySelector(".modal")
 
-openModal.forEach(open => open.addEventListener('click', toggleModal))
+openModal.forEach(button => button.addEventListener('click', toggleModal))
 
 function toggleModal() {
   modal1.style.display = "flex";
@@ -245,16 +245,19 @@ function openModalAdd() {
 }
 
 /***FormPostWorks***/
-const worksForm = document.querySelector(".worksForm")
-worksForm.addEventListener('submit', fetchAdd)
+const worksForm = document.querySelector(".worksForm");
+worksForm.addEventListener('submit', fetchAdd);
 
-async function fetchAdd(e) {
+function postNewWork(e){
   e.preventDefault();
+}
+
+async function fetchAdd() {
   const token = localStorage.getItem("token")
   const formData= new FormData(worksForm);
-  formData.get("category");
-  formData.get("title");
-  formData.get("image");
+  formData.add("category");
+  formData.add("title");
+  formData.add("image");
   console.log(formData.get("title"));
   const response = await fetch(`http://localhost:5678/api/works`, {
     method: "POST",
@@ -264,8 +267,8 @@ async function fetchAdd(e) {
     body: formData
   })
   if (response.ok){
-    modalGenerate(newProject);
-    urlgenerate(newProject);
+    modalGenerate(worksForm);
+    urlgenerate(worksForm);
   }
   else{
     alert("alerte,impossible d'ajouter ce projet");

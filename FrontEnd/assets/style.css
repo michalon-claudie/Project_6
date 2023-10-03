@@ -161,6 +161,7 @@ a:hover
 {
 	display:flex;
 	justify-content: center;
+	align-items:baseline;
 	margin: 5%;
 }
 .title-modify h2
@@ -177,6 +178,17 @@ a:hover
 {
 	color:white;
 	background-color: black;
+	font-family: Work Sans;
+	font-weight:400;
+	font-size: 14px;
+	border:none;
+	margin:0;
+	padding:10px;
+}
+.editionMode:hover
+{
+	color: #B1663C;
+	cursor:pointer;
 }
 #blackBloc i 
 {
@@ -264,7 +276,7 @@ a:hover
 {
 	width:100%;
 }
-.modal-button
+.modal-button,.modifyProject
 {
 	font-family: Work Sans;
 	font-weight:400;
@@ -274,7 +286,7 @@ a:hover
 	padding:10px;
 	background-color: #fffef8;
 }
-.modal-button:hover
+.modal-button:hover,.modifyProject:hover
 {
 	color: #B1663C;
 	cursor:pointer;
