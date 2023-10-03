@@ -245,14 +245,12 @@ function openModalAdd() {
 }
 
 /***FormPostWorks***/
-const btnValid = document.getElementById("#btnValider")
-btnValid.addEventListener('submit', fetchAdd)
+const worksForm = document.getElementById("#worksForm")
+worksForm.addEventListener('submit', fetchAdd)
 
-async function fetchAdd() {
+async function fetchAdd(e) {
+  e.preventDefault();
   const token = localStorage.getItem("token")
-  const pictureValue = document.getElementById("#file")
-  const titleValue = document.getElementById("#title")
-  const categoryValue = document.getElementById("#category")
   const response = await fetch(`http://localhost:5678/api/works`, {
     method: "POST",
     headers: {
@@ -260,8 +258,13 @@ async function fetchAdd() {
     },
     body: formData
   })
-  const formData= new formData();
-  formData.append("category",categoryValue)
-  formData.append("title",titleValue)
-  formData.append("picture",pictureValue)
+  if (response.ok){
+    modalGenerate(newProject);
+    urlgenerate(newProject);
+  }
+  const formData= new FormData(worksForm);
+  formData.add("category");
+  formData.add("title");
+  formData.add("image");
+  console.log(formData.get("title"));
 }

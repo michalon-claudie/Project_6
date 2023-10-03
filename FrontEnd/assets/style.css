@@ -258,11 +258,11 @@ a:hover
 	margin-bottom: 2%;
 	padding-bottom: 5%;
 	border-bottom: 1px solid #1d6154;
+	width:64%;
 }
 .modalGallery img 
 {
-	width:71px;
-	height:96px;
+	width:100%;
 }
 .modal-button
 {
@@ -290,6 +290,7 @@ a:hover
 {
 	display: flex;
 	position: relative;
+	width:18%;
 }
 .trash
 {
