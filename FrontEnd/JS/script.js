@@ -245,7 +245,7 @@ function openModalAdd() {
 }
 
 /***FormPostWorks***/
-const worksForm = document.getElementById("#worksForm")
+const worksForm = document.querySelector(".worksForm")
 worksForm.addEventListener('submit', fetchAdd)
 
 async function fetchAdd(e) {
