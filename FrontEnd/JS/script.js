@@ -251,6 +251,11 @@ worksForm.addEventListener('submit', fetchAdd)
 async function fetchAdd(e) {
   e.preventDefault();
   const token = localStorage.getItem("token")
+  const formData= new FormData(worksForm);
+  formData.get("category");
+  formData.get("title");
+  formData.get("image");
+  console.log(formData.get("title"));
   const response = await fetch(`http://localhost:5678/api/works`, {
     method: "POST",
     headers: {
@@ -262,9 +267,7 @@ async function fetchAdd(e) {
     modalGenerate(newProject);
     urlgenerate(newProject);
   }
-  const formData= new FormData(worksForm);
-  formData.add("category");
-  formData.add("title");
-  formData.add("image");
-  console.log(formData.get("title"));
+  else{
+    alert("alerte,impossible d'ajouter ce projet");
+  }
 }
