@@ -248,12 +248,9 @@ function openModalAdd() {
 const worksForm = document.querySelector(".worksForm");
 worksForm.addEventListener('submit', fetchAdd);
 
-function postNewWork(e){
-  e.preventDefault();
-}
-
 async function fetchAdd() {
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
+  e.preventDefault();
   const formData= new FormData(worksForm);
   formData.add("category");
   formData.add("title");
