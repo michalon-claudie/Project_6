@@ -260,6 +260,17 @@ selectcategory.appendChild(addHotel);
 selectcategory.appendChild(addAppartment);
 selectcategory.appendChild(addObject);
 
+/***Upload-img***/
+const buttonImg = document.getElementById("addImgButton");
+const fileImg = document.getElementById("file");
+
+buttonImg.addEventListener("click",
+(e)=>{
+  if(fileImg){
+    fileImg.click();
+  }
+  e.preventDefault();
+});
 /***FormPostWorks***/
 const worksForm = document.querySelector(".worksForm");
 worksForm.addEventListener('submit', fetchAdd);
