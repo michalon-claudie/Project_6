@@ -244,6 +244,22 @@ function openModalAdd() {
   modal2.style.display ="flex";
 }
 
+/***add-category on menu***/
+const selectcategory = document.getElementById("category");
+
+const addHotel = document.createElement("option");
+addHotel.innerHTML = "Hotels and Restaurants";
+
+const addAppartment = document.createElement("option");
+addAppartment.innerHTML = "Appartements";
+
+const addObject = document.createElement("option");
+addObject.innerHTML = "Objets";
+
+selectcategory.appendChild(addHotel);
+selectcategory.appendChild(addAppartment);
+selectcategory.appendChild(addObject);
+
 /***FormPostWorks***/
 const worksForm = document.querySelector(".worksForm");
 worksForm.addEventListener('submit', fetchAdd);
