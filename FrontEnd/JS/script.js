@@ -1,17 +1,19 @@
 const urlFetch = fetch('http://localhost:5678/api/works');
 let allProject = [];
 
+let categories =[];
+
 function removeAllChildren(node) {
   node.innerHTML = ''
 }
 
 const gallery = document.querySelector(".gallery");
-function galleryCreate(data) {
+function galleryCreate() {
 
-  removeAllChildren(gallery)
+  removeAllChildren(galleryPictures)
 
-  for (let i = 0; i < data.length; i++) {
-    const worksIndex = data[i];
+  for (let i = 0; i < galleryPictures.length; i++) {
+    const worksIndex = galleryPictures[i];
 
     const divProject = document.createElement("figure");
 
@@ -26,27 +28,16 @@ function galleryCreate(data) {
     divProject.appendChild(textWorks);
   }
 }
-
-async function urlgenerate() {
-  await urlFetch
-    .then((response) => {
-      if (response.ok) return response.json()
-    })
-    .then((data) => {
-      console.table(data);
-      console.log(data);
-      allProject = data;
-      galleryCreate(data);
-    }
-    )
-    .catch((error) => {
-      alert('Error')
-      console.log('error')
-    }
-    )
+async function galleryGenerate (){
+  const galleryResponse = await fetch('http://localhost:5678/api/works');
+  galleryPictures = await galleryResponse.json();
+  console.log(galleryPictures);
 }
-
-urlgenerate();
+galleryGenerate()
+.then(()=>{
+  galleryCreate();
+  CreateModal();
+})
 
 /***Add category and filters***/
 
@@ -63,11 +54,11 @@ allButton.addEventListener('click', function () {
   galleryCreate(allProject)
 });
 
-function FiltersGenerate(data) {
-  for (let i = 0; i < data.length; i++) {
+function filtersGenerate() {
+  for (let i = 0; i < categories.length; i++) {
     const filters = document.querySelector(".filters");
 
-    const category = data[i];
+    const category = categories[i];
 
     const button = document.createElement("button");
     button.id = "filters-" + category.name;
@@ -87,19 +78,37 @@ function FiltersGenerate(data) {
     });
   }
 }
+async function getCategories (){
+  const categoriesResponse = await fetch("http://localhost:5678/api/categories");
+  categories = await categoriesResponse.json();
+  console.log(categories);
+}
 
-async function categoryGenerate() {
-  await categoryFetch
-    .then((response) => {
-      if (response.ok) return response.json()
-    })
-    .then((data) => {
-      console.log(data);
-      FiltersGenerate(data);
-    })
-};
+/***add-category on menu***/
+function addCategoryOptions() {
+  for (let i = 0; i < categories.length; i++) {
+    const selectCategory = document.getElementById("category");
 
-categoryGenerate();
+    const category = categories[i];
+
+    const addOption = document.createElement("option");
+    addOption.id = "choose-" + category.name;
+
+    const addOptionText = document.createElement("span");
+    addOptionText.innerHTML = category.name;
+
+    selectCategory.appendChild(addOption);
+    addOption.appendChild(addOptionText);
+  }
+}
+addCategoryOptions();
+
+getCategories()
+.then(()=>{
+  filtersGenerate();
+  addCategoryOptions();
+})
+
 
 /***Button-filters generated***/
 
@@ -142,10 +151,10 @@ logout.addEventListener('click', function () {
 /***Creating modal***/
 const modalGallery = document.querySelector(".modalGallery");
 
-function CreateModal(data) {
+function CreateModal() {
 
-  for (let i = 0; i < data.length; i++) {
-    const worksIndex = data[i];
+  for (let i = 0; i < galleryPictures.length; i++) {
+    const worksIndex = galleryPictures[i];
 
     const figure = document.createElement("figure");
 
@@ -164,18 +173,6 @@ function CreateModal(data) {
   }
 }
 
-async function modalGenerate() {
-  const response = await fetch("http://localhost:5678/api/works")
-  const worksList = await response.json();
-  if (response.ok) {
-    removeAllChildren(modalGallery);
-    CreateModal(worksList);
-  } else {
-    alert("Error");
-    console.log("error");
-  }
-}
-
 /***make the modal appear on click*/
 const openModal = document.querySelectorAll('[data-action="openModal"]');
 
@@ -187,7 +184,7 @@ function toggleModal() {
   modal1.style.display = "flex";
   modalContent.style.display="flex";
   modal2.style.display="none";
-  modalGenerate();
+  galleryGenerate();
 }
 
 const closeCross = document.querySelectorAll(".closeModal")
@@ -243,33 +240,7 @@ function openModalAdd() {
   modal2.style.display ="flex";
 }
 
-/***add-category on menu***/
-function chooseCategory(data) {
-  for (let i = 0; i < data.length; i++) {
-    const selectCategory = document.getElementById("category");
 
-    const category = data[i];
-
-    const addOption = document.createElement("option");
-    addOption.id = "choose-" + category.name;
-
-    const addOptionText = document.createElement("span");
-    addOptionText.innerHTML = category.name;
-
-    selectCategory.appendChild(addOption);
-    addOption.appendChild(addOptionText);
-  }
-}
-async function categoryGenerate() {
-  await categoryFetch
-    .then((response) => {
-      if (response.ok) return response.json()
-    })
-    .then((data) => {
-      console.log(data);
-      chooseCategory(data);
-    })
-};
 /***Upload-img***/
 const buttonImg = document.getElementById("addImgButton");
 const fileImg = document.getElementById("file");
@@ -287,9 +258,9 @@ buttonImg.addEventListener("click",
 );
 /***FormPostWorks***/
 const worksForm = document.querySelector(".worksForm");
-worksForm.addEventListener('submit', fetchAdd);
+worksForm.addEventListener('submit', (e)=>fetchAdd(e));
 
-async function fetchAdd() {
+async function fetchAdd(e) {
   const token = localStorage.getItem("token");
   e.preventDefault();
   const formData= new FormData(worksForm);
