@@ -1,16 +1,15 @@
-const urlFetch = fetch('http://localhost:5678/api/works');
-let allProject = [];
-
+/**Variables and constants*/
+const gallery = document.querySelector(".gallery");
+let galleryPictures = [];
 let categories =[];
 
 function removeAllChildren(node) {
   node.innerHTML = ''
 }
 
-const gallery = document.querySelector(".gallery");
 function galleryCreate() {
 
-  removeAllChildren(galleryPictures)
+  removeAllChildren(gallery)
 
   for (let i = 0; i < galleryPictures.length; i++) {
     const worksIndex = galleryPictures[i];
@@ -40,9 +39,6 @@ galleryGenerate()
 })
 
 /***Add category and filters***/
-
-const categoryFetch = fetch("http://localhost:5678/api/categories");
-
 const allButton = document.createElement("button");
 const filters = document.querySelector(".filters")
 const buttonText = document.createElement("span");
@@ -51,7 +47,7 @@ buttonText.innerHTML = "Tous";
 filters.appendChild(allButton)
 allButton.appendChild(buttonText)
 allButton.addEventListener('click', function () {
-  galleryCreate(allProject)
+  galleryCreate(galleryPictures)
 });
 
 function filtersGenerate() {
@@ -70,7 +66,7 @@ function filtersGenerate() {
     button.appendChild(buttonText);
 
     button.addEventListener("click", function () {
-      const FilteredProject = allProject.filter(
+      const FilteredProject = galleryPictures.filter(
         (project) => project.categoryId === category.id
       )
       console.log(FilteredProject);
@@ -209,8 +205,7 @@ async function fetchDelete(id) {
   })
   if (response.ok) {
     const updatedProjects = allProject.filter((project) => project.id !== id);
-    galleryCreate(updatedProjects);
-    modalGenerate()
+    galleryGenerate(updatedProjects);
     console.log("Image supprimée avec succès");
   } else {
     alert("Erreur lors de la suppression de l'image");
