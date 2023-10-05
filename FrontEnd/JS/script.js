@@ -85,7 +85,6 @@ function FiltersGenerate(data) {
       console.log(FilteredProject);
       galleryCreate(FilteredProject);
     });
-
   }
 }
 
@@ -245,21 +244,32 @@ function openModalAdd() {
 }
 
 /***add-category on menu***/
-const selectcategory = document.getElementById("category");
+function chooseCategory(data) {
+  for (let i = 0; i < data.length; i++) {
+    const selectCategory = document.getElementById("category");
 
-const addHotel = document.createElement("option");
-addHotel.innerHTML = "Hotels and Restaurants";
+    const category = data[i];
 
-const addAppartment = document.createElement("option");
-addAppartment.innerHTML = "Appartements";
+    const addOption = document.createElement("option");
+    addOption.id = "choose-" + category.name;
 
-const addObject = document.createElement("option");
-addObject.innerHTML = "Objets";
+    const addOptionText = document.createElement("span");
+    addOptionText.innerHTML = category.name;
 
-selectcategory.appendChild(addHotel);
-selectcategory.appendChild(addAppartment);
-selectcategory.appendChild(addObject);
-
+    selectCategory.appendChild(addOption);
+    addOption.appendChild(addOptionText);
+  }
+}
+async function categoryGenerate() {
+  await categoryFetch
+    .then((response) => {
+      if (response.ok) return response.json()
+    })
+    .then((data) => {
+      console.log(data);
+      chooseCategory(data);
+    })
+};
 /***Upload-img***/
 const buttonImg = document.getElementById("addImgButton");
 const fileImg = document.getElementById("file");
