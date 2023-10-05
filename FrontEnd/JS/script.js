@@ -263,14 +263,18 @@ selectcategory.appendChild(addObject);
 /***Upload-img***/
 const buttonImg = document.getElementById("addImgButton");
 const fileImg = document.getElementById("file");
+const addPictureForm = document.querySelector(".addPicture");
 
 buttonImg.addEventListener("click",
 (e)=>{
   if(fileImg){
     fileImg.click();
+    const picture = document.createElement("img");
+    addPictureForm.appendChild(picture);
   }
   e.preventDefault();
-});
+}
+);
 /***FormPostWorks***/
 const worksForm = document.querySelector(".worksForm");
 worksForm.addEventListener('submit', fetchAdd);
