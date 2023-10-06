@@ -1,3 +1,11 @@
+const form = document.querySelector(".login");
+const email = document.querySelector('input[type="email"]');
+const pword = document.querySelector('input[type="password"]');
+const validButton = document.querySelector('input[type="submit"]');
+const emailValue = email.value;
+const passwordValue = pword.value;
+
+
 async function connectUser (email,password){
     const response = await fetch ("http://localhost:5678/api/users/login",{
         method : "POST",
@@ -21,12 +29,6 @@ async function connectUser (email,password){
     }
 }
 
-const form = document.querySelector(".login")
-const email = document.querySelector('input[type="email"]')
-const pword = document.querySelector('input[type="password"]')
-const validButton = document.querySelector('input[type="submit"]')
-const emailValue = email.value
-const passwordValue = pword.value
 
 validButton.addEventListener("click", function(event)
 {
