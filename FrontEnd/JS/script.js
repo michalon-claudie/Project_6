@@ -3,6 +3,57 @@ const gallery = document.querySelector(".gallery");
 let galleryPictures = [];
 let categories =[];
 
+/***category and filters***/
+const allButton = document.createElement("button");
+const filters = document.querySelector(".filters");
+const buttonText = document.createElement("span");
+buttonText.innerHTML = "Tous";
+
+filters.appendChild(allButton)
+allButton.appendChild(buttonText)
+
+/***Manage connection User***/
+const token = localStorage.getItem("token")
+const blackBloc = document.getElementById("blackBloc")
+const logout = document.getElementById("logout")
+const login = document.getElementById("login")
+const modifyButton = document.querySelector(".modifyProject")
+const modalButton = document.querySelector(".modal-button")
+modalButton.innerHTML = "Modifier"
+const modifyTitle = document.querySelector(".title-modify")
+modifyTitle.appendChild(modifyButton)
+modifyButton.appendChild(modalButton)
+
+/***Creating modal***/
+const modalGallery = document.querySelector(".modalGallery");
+
+/***make the modal appear on click*/
+const openModal = document.querySelectorAll('[data-action="openModal"]');
+const modal1 = document.querySelector(".modal");
+
+/**Close Modal*/
+const closeCross = document.querySelectorAll(".closeModal");
+const overlay = document.querySelector(".overlayModal");
+
+/***go back in modal2*/
+const arrow = document.querySelector(".fa-arrow-left");
+
+/**Open Modal2*/
+const addProject = document.querySelector(".addButton");
+const modalContent = document.querySelector(".modalContent");
+const modal2= document.querySelector(".modal2");
+
+/***Upload-img***/
+const buttonImg = document.getElementById("addImgButton");
+const fileImg = document.getElementById("file");
+const addPictureForm = document.querySelector(".addPicture");
+
+/***FormPostWorks***/
+const worksForm = document.querySelector(".worksForm");
+
+/***Function***/
+
+/***To create gallery***/
 function removeAllChildren(node) {
   node.innerHTML = ''
 }
@@ -38,14 +89,9 @@ galleryGenerate()
   CreateModal();
 })
 
-/***Add category and filters***/
-const allButton = document.createElement("button");
-const filters = document.querySelector(".filters")
-const buttonText = document.createElement("span");
-buttonText.innerHTML = "Tous";
 
-filters.appendChild(allButton)
-allButton.appendChild(buttonText)
+/**Function - add filters***/
+
 allButton.addEventListener('click', function () {
   galleryCreate(galleryPictures)
 });
@@ -80,7 +126,7 @@ async function getCategories (){
   console.log(categories);
 }
 
-/***add-category on menu***/
+/***add-category on menu modal***/
 function addCategoryOptions() {
   for (let i = 0; i < categories.length; i++) {
     const selectCategory = document.getElementById("category");
@@ -108,17 +154,7 @@ getCategories()
 
 /***Button-filters generated***/
 
-const token = localStorage.getItem("token")
-const blackBloc = document.getElementById("blackBloc")
-const logout = document.getElementById("logout")
-const login = document.getElementById("login")
-const modifyButton = document.querySelector(".modifyProject")
-const modalButton = document.querySelector(".modal-button")
-modalButton.innerHTML = "Modifier"
-const modifyTitle = document.querySelector(".title-modify")
-modifyTitle.appendChild(modifyButton)
-modifyButton.appendChild(modalButton)
-
+/**Function connectionUser managment*/
 if (token) {
   filters.style.display = "none"
   blackBloc.style.display = "flex"
@@ -144,8 +180,7 @@ logout.addEventListener('click', function () {
   }
 })
 
-/***Creating modal***/
-const modalGallery = document.querySelector(".modalGallery");
+/**Create Modal***/
 
 function CreateModal() {
 
@@ -170,9 +205,6 @@ function CreateModal() {
 }
 
 /***make the modal appear on click*/
-const openModal = document.querySelectorAll('[data-action="openModal"]');
-
-const modal1 = document.querySelector(".modal")
 
 openModal.forEach(button => button.addEventListener('click', toggleModal))
 
@@ -183,8 +215,7 @@ function toggleModal() {
  galleryGenerate();
 }
 
-const closeCross = document.querySelectorAll(".closeModal")
-const overlay = document.querySelector(".overlayModal")
+/**Close Modal*/
 
 closeCross.forEach(close =>close.addEventListener('click', closeModal))
 overlay.addEventListener('click', closeModal)
@@ -214,7 +245,6 @@ async function fetchDelete(id) {
 
 /***Modal2 opened*/
 
-const arrow = document.querySelector(".fa-arrow-left")
 arrow.addEventListener('click',goback)
 
 function goback(){
@@ -224,10 +254,6 @@ function goback(){
 
 /***PostWorks-openModal2***/
 
-const addProject = document.querySelector(".addButton")
-const modalContent = document.querySelector(".modalContent")
-const modal2= document.querySelector(".modal2")
-
 addProject.addEventListener('click', openModalAdd)
 
 function openModalAdd() {
@@ -235,11 +261,7 @@ function openModalAdd() {
   modal2.style.display ="flex";
 }
 
-
 /***Upload-img***/
-const buttonImg = document.getElementById("addImgButton");
-const fileImg = document.getElementById("file");
-const addPictureForm = document.querySelector(".addPicture");
 
 buttonImg.addEventListener("click",
 (e)=>{
@@ -252,7 +274,7 @@ buttonImg.addEventListener("click",
 }
 );
 /***FormPostWorks***/
-const worksForm = document.querySelector(".worksForm");
+
 worksForm.addEventListener('submit', async function fetchAdd(e){
   const token = localStorage.getItem("token");
   e.preventDefault();
