@@ -9,7 +9,7 @@ function removeAllChildren(node) {
 
 function galleryCreate() {
 
-  removeAllChildren(gallery)
+  removeAllChildren(galleryPictures);
 
   for (let i = 0; i < galleryPictures.length; i++) {
     const worksIndex = galleryPictures[i];
@@ -180,7 +180,7 @@ function toggleModal() {
   modal1.style.display = "flex";
   modalContent.style.display="flex";
   modal2.style.display="none";
-  galleryGenerate();
+ galleryGenerate();
 }
 
 const closeCross = document.querySelectorAll(".closeModal")
@@ -204,7 +204,7 @@ async function fetchDelete(id) {
     },
   })
   if (response.ok) {
-    const updatedProjects = allProject.filter((project) => project.id !== id);
+    const updatedProjects = galleryPictures.filter((project) => project.id !== id);
     galleryGenerate(updatedProjects);
     console.log("Image supprimée avec succès");
   } else {
@@ -253,15 +253,13 @@ buttonImg.addEventListener("click",
 );
 /***FormPostWorks***/
 const worksForm = document.querySelector(".worksForm");
-worksForm.addEventListener('submit', (e)=>fetchAdd(e));
-
-async function fetchAdd(e) {
+worksForm.addEventListener('submit', async function fetchAdd(e){
   const token = localStorage.getItem("token");
   e.preventDefault();
   const formData= new FormData(worksForm);
-  formData.add("category");
-  formData.add("title");
-  formData.add("image");
+  formData.get("categoryId");
+  formData.get("title");
+  formData.get("imageUrl");
   console.log(formData.get("title"));
   const response = await fetch(`http://localhost:5678/api/works`, {
     method: "POST",
@@ -277,4 +275,4 @@ async function fetchAdd(e) {
   else{
     alert("alerte,impossible d'ajouter ce projet");
   }
-}
+});
