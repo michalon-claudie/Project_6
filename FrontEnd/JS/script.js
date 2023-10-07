@@ -1,6 +1,6 @@
 /**Variables and constants*/
 const gallery = document.querySelector(".gallery");
-let galleryPictures = [];
+const galleryPictures = [];
 let categories =[];
 
 /***category and filters***/
@@ -13,14 +13,14 @@ filters.appendChild(allButton)
 allButton.appendChild(buttonText)
 
 /***Manage connection User***/
-const token = localStorage.getItem("token")
-const blackBloc = document.getElementById("blackBloc")
-const logout = document.getElementById("logout")
-const login = document.getElementById("login")
-const modifyButton = document.querySelector(".modifyProject")
-const modalButton = document.querySelector(".modal-button")
-modalButton.innerHTML = "Modifier"
-const modifyTitle = document.querySelector(".title-modify")
+const token = localStorage.getItem("token");
+const blackBloc = document.getElementById("blackBloc");
+const logout = document.getElementById("logout");
+const login = document.getElementById("login");
+const modifyButton = document.querySelector(".modifyProject");
+const modalButton = document.querySelector(".modal-button");
+modalButton.innerHTML = "Modifier";
+const modifyTitle = document.querySelector(".title-modify");
 modifyTitle.appendChild(modifyButton)
 modifyButton.appendChild(modalButton)
 
@@ -60,7 +60,7 @@ function removeAllChildren(node) {
 
 function galleryCreate() {
 
-  removeAllChildren(galleryPictures);
+  removeAllChildren(gallery);
 
   for (let i = 0; i < galleryPictures.length; i++) {
     const worksIndex = galleryPictures[i];
@@ -78,17 +78,16 @@ function galleryCreate() {
     divProject.appendChild(textWorks);
   }
 }
-async function galleryGenerate (){
-  const galleryResponse = await fetch('http://localhost:5678/api/works');
-  galleryPictures = await galleryResponse.json();
-  console.log(galleryPictures);
+async function getPictures (){
+  try {
+    const galleryResponse = await fetch('http://localhost:5678/api/works');
+    return galleryResponse.json();
+    // galleryPictures = await galleryResponse.json();
+    // console.log(galleryPictures);
+  } catch (err) {
+    console.log("error");
+  }
 }
-galleryGenerate()
-.then(()=>{
-  galleryCreate();
-  CreateModal();
-})
-
 
 /**Function - add filters***/
 
@@ -99,62 +98,67 @@ allButton.addEventListener('click', function () {
 function filtersGenerate() {
   for (let i = 0; i < categories.length; i++) {
     const filters = document.querySelector(".filters");
-
+    
     const category = categories[i];
-
+    
     const button = document.createElement("button");
     button.id = "filters-" + category.name;
-
+    
     const buttonText = document.createElement("span");
     buttonText.innerHTML = category.name;
-
+    
     filters.appendChild(button);
     button.appendChild(buttonText);
-
+    
     button.addEventListener("click", function () {
+      console.log({gallery: galleryPictures})
       const FilteredProject = galleryPictures.filter(
         (project) => project.categoryId === category.id
-      )
-      console.log(FilteredProject);
-      galleryCreate(FilteredProject);
-    });
+        )
+        console.log(FilteredProject);
+        galleryCreate(FilteredProject);
+      });
+    }
   }
-}
-async function getCategories (){
-  const categoriesResponse = await fetch("http://localhost:5678/api/categories");
-  categories = await categoriesResponse.json();
-  console.log(categories);
-}
-
-/***add-category on menu modal***/
-function addCategoryOptions() {
-  for (let i = 0; i < categories.length; i++) {
-    const selectCategory = document.getElementById("category");
-
-    const category = categories[i];
-
-    const addOption = document.createElement("option");
-    addOption.id = "choose-" + category.name;
-
-    const addOptionText = document.createElement("span");
-    addOptionText.innerHTML = category.name;
-
-    selectCategory.appendChild(addOption);
-    addOption.appendChild(addOptionText);
+  async function getCategories (){
+    const categoriesResponse = await fetch("http://localhost:5678/api/categories");
+    return categoriesResponse.json();
   }
-}
-addCategoryOptions();
-
-getCategories()
-.then(()=>{
-  filtersGenerate();
+  
+  /***add-category on menu modal***/
+  function addCategoryOptions() {
+    for (let i = 0; i < categories.length; i++) {
+      const selectCategory = document.getElementById("category");
+      
+      const category = categories[i];
+      
+      const addOption = document.createElement("option");
+      addOption.id = "choose-" + category.name;
+      
+      const addOptionText = document.createElement("span");
+      addOptionText.innerHTML = category.name;
+      
+      selectCategory.appendChild(addOption);
+      addOption.appendChild(addOptionText);
+    }
+  }
+  
+async function init(){
+  const data = await getPictures();
+  galleryPictures.push([...data]);
+  console.log({data})
+  galleryCreate();
+  createModal();
   addCategoryOptions();
-})
+  categories = await getCategories();
+  filtersGenerate();
+}
 
-
+init();
 /***Button-filters generated***/
 
 /**Function connectionUser managment*/
+
 if (token) {
   filters.style.display = "none"
   blackBloc.style.display = "flex"
@@ -182,7 +186,7 @@ logout.addEventListener('click', function () {
 
 /**Create Modal***/
 
-function CreateModal() {
+function createModal() {
 
   for (let i = 0; i < galleryPictures.length; i++) {
     const worksIndex = galleryPictures[i];
@@ -212,7 +216,7 @@ function toggleModal() {
   modal1.style.display = "flex";
   modalContent.style.display="flex";
   modal2.style.display="none";
- galleryGenerate();
+ getPictures();
 }
 
 /**Close Modal*/
@@ -236,7 +240,7 @@ async function fetchDelete(id) {
   })
   if (response.ok) {
     const updatedProjects = galleryPictures.filter((project) => project.id !== id);
-    galleryGenerate(updatedProjects);
+    getPictures(updatedProjects);
     console.log("Image supprimée avec succès");
   } else {
     alert("Erreur lors de la suppression de l'image");
