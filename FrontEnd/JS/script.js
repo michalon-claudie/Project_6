@@ -249,13 +249,8 @@ async function fetchDelete(id) {
     },
   })
   if (response.ok) {
-    rawData.length = 0;
-    const data = await getPictures();
-    rawData.push(...data);
-    const updatedProjects = rawData.filter((project) => project.id !== id);
-    removeAllChildren(rawData);
-    createGallery(updatedProjects);
-    createModal(updatedProjects);
+    rawData.filter((project) => project.id !== id);
+    init();
     console.log("Image supprimée avec succès");
   } else {
     alert("Erreur lors de la suppression de l'image");
