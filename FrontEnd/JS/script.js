@@ -61,7 +61,10 @@ function removeAllChildren(node) {
 function deleteGallery() {
   removeAllChildren(gallery);
 }
- 
+
+function deleteModalGallery() {
+  removeAllChildren(modalGallery);
+}
 /**
  * Creates and populates a gallery of works using the provided data.
  * This function removes any existing content from the gallery before adding new items.
@@ -90,6 +93,8 @@ function createGallery(data) {
 }
  
 function createModal(data) {
+
+  deleteModalGallery();
  
   for (let i = 0; i < data.length; i++) {
     const worksIndex = data[i];
@@ -104,7 +109,7 @@ function createModal(data) {
     trash.classList.add("trash");
     trash.setAttribute("data-id", worksIndex.id)
     trash.addEventListener('click', function () {
-      fetchDelete(worksIndex.id)
+      deletePicturesById(worksIndex.id)
     })
     modalGallery.appendChild(figure);
     figure.append(imageWorks, trash);
@@ -240,7 +245,7 @@ function closeModal() {
  
 /***delete projects***/
  
-async function fetchDelete(id) {
+async function deletePicturesById(id) {
   const token = localStorage.getItem("token")
   const response = await fetch(`http://localhost:5678/api/works/${id}`, {
     method: "DELETE",
@@ -249,8 +254,9 @@ async function fetchDelete(id) {
     },
   })
   if (response.ok) {
-    rawData.filter((project) => project.id !== id);
-    init();
+    const updatedProjects = rawData.filter((project) => project.id !== id);
+    createGallery(updatedProjects);
+    createModal(updatedProjects);
     console.log("Image supprimée avec succès");
   } else {
     alert("Erreur lors de la suppression de l'image");
