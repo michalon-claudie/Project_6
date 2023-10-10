@@ -45,7 +45,7 @@ const modal2= document.querySelector(".modal2");
  
 /***Upload-img***/
 const buttonImg = document.getElementById("addImgButton");
-const fileImg = document.getElementById("file");
+const fileImg = document.getElementById("imageUrl");
 const addPictureForm = document.querySelector(".addPicture");
  
 /***FormPostWorks***/
@@ -164,7 +164,7 @@ async function getCategories (){
 /***add-category on menu modal***/
 function addCategoryOptions() {
   for (let i = 0; i < categories.length; i++) {
-    const selectCategory = document.getElementById("category");
+    const selectCategory = document.getElementById("categoryId");
 
     const category = categories[i];
 
@@ -293,27 +293,47 @@ buttonImg.addEventListener("click",
   e.preventDefault();
 }
 );
+
+const imageInput = document.getElementById("imageUrl");
+const imagePreview = document.getElementById("imagePreview");
+imageInput.addEventListener('change', function() {
+    const file = imageInput.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            imagePreview.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        imagePreview.src = '#';
+    }
+});
 /***FormPostWorks***/
  
-worksForm.addEventListener('submit', async function fetchAdd(e){
+worksForm.addEventListener('submit', async function addNewProject(e){
   const token = localStorage.getItem("token");
   e.preventDefault();
-  const formData= new FormData(worksForm);
-  formData.get("categoryId");
-  formData.get("title");
-  formData.get("imageUrl");
-  console.log(formData.get("title"));
-  const response = await fetch(`http://localhost:5678/api/works`, {
+  const formData= new FormData();
+  let imageUrl = document.getElementById("imageUrl").files[0];
+  console.log(imageUrl)
+  let title = document.getElementById("title").value;
+  console.log(title)
+  let categoryId = document.getElementById("categoryId").value;
+  console.log(categoryId)
+  formData.append("categoryId",categoryId);
+  formData.append("title",title);
+  formData.append("imageUrl",imageUrl);
+  console.log(formData)
+  const response = await fetch("http://localhost:5678/api/works", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     },
-    body: formData,
+    body: formData
   })
   if (response.ok){
-    createGallery(worksForm);
-    createModal(worksForm);
-    getPictures(worksForm);
+    createGallery();
+    createModal();
   }
   else{
     alert("alerte,impossible d'ajouter ce projet");
