@@ -304,6 +304,12 @@ imageInput.addEventListener('change', function() {
             imagePreview.src = event.target.result;
         };
         reader.readAsDataURL(file);
+        const imgIcone = document.querySelector(".fa-image");
+        imgIcone.style.display = "none";
+        const addImgButton = document.getElementById("addImgButton");
+        addImgButton.style.display ="none";
+        const imgParagrapheDetails = document.querySelector(".details");
+        imgParagrapheDetails.style.display = "none";
     } else {
         imagePreview.src = '#';
     }
@@ -332,8 +338,8 @@ worksForm.addEventListener('submit', async function addNewProject(e){
     body: formData
   })
   if (response.ok){
-    createGallery();
-    createModal();
+    createGallery(formData);
+    createModal(formData);
   }
   else{
     alert("alerte,impossible d'ajouter ce projet");
