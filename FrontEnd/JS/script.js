@@ -297,23 +297,26 @@ buttonImg.addEventListener("click",
 const imageInput = document.getElementById("imageUrl");
 const imagePreview = document.getElementById("imagePreview");
 imageInput.addEventListener('change', function() {
-    const file = imageInput.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            imagePreview.src = event.target.result;
-        };
-        reader.readAsDataURL(file);
-        const imgIcone = document.querySelector(".fa-image");
-        imgIcone.style.display = "none";
-        const addImgButton = document.getElementById("addImgButton");
-        addImgButton.style.display ="none";
-        const imgParagrapheDetails = document.querySelector(".details");
-        imgParagrapheDetails.style.display = "none";
-        imagePreview.style.display ="flex";
-    } else {
-        imagePreview.src = '#';
-    }
+  const file = imageInput.files[0];
+  const maxSizeImg = 4 * 1024 * 1024;
+  const fileSizeOK = file.size<maxSizeImg;
+  if (fileSizeOK) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        imagePreview.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+      const imgIcone = document.querySelector(".fa-image");
+      imgIcone.style.display = "none";
+      const addImgButton = document.getElementById("addImgButton");
+      addImgButton.style.display ="none";
+      const imgParagrapheDetails = document.querySelector(".details");
+      imgParagrapheDetails.style.display = "none";
+      imagePreview.style.display ="flex";
+  } else {
+      imagePreview.src = '#';
+      alert("ce ficher est trop volumineux")
+  }
 });
 /***FormPostWorks***/
  
