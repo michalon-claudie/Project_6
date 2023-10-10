@@ -416,6 +416,10 @@ a:hover
 	padding:4%;
 	cursor: pointer;
 }
+#imagePreview
+{
+	display: none;
+}
 .addCategory
 {
 	padding-bottom: 10px;

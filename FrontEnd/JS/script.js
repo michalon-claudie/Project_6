@@ -310,14 +310,14 @@ imageInput.addEventListener('change', function() {
         addImgButton.style.display ="none";
         const imgParagrapheDetails = document.querySelector(".details");
         imgParagrapheDetails.style.display = "none";
+        imagePreview.style.display ="flex";
     } else {
         imagePreview.src = '#';
     }
 });
 /***FormPostWorks***/
  
-worksForm.addEventListener('submit', async function addNewProject(e){
-  const token = localStorage.getItem("token");
+worksForm.addEventListener('submit',async function addNewProject(e){
   e.preventDefault();
   const formData= new FormData();
   let imageUrl = document.getElementById("imageUrl").files[0];
@@ -330,6 +330,7 @@ worksForm.addEventListener('submit', async function addNewProject(e){
   formData.append("title",title);
   formData.append("imageUrl",imageUrl);
   console.log(formData)
+  const token = localStorage.getItem("token");
   const response = await fetch("http://localhost:5678/api/works", {
     method: "POST",
     headers: {
@@ -338,10 +339,12 @@ worksForm.addEventListener('submit', async function addNewProject(e){
     body: formData
   })
   if (response.ok){
-    createGallery(formData);
-    createModal(formData);
+    createGallery();
+    createModal();
   }
   else{
     alert("alerte,impossible d'ajouter ce projet");
   }
-});
+  }
+);
+  
