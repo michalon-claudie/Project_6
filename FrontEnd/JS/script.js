@@ -45,7 +45,7 @@ const modal2= document.querySelector(".modal2");
  
 /***Upload-img***/
 const buttonImg = document.getElementById("addImgButton");
-const fileImg = document.getElementById("imageUrl");
+const fileImg = document.getElementById("image");
 const addPictureForm = document.querySelector(".addPicture");
  
 /***FormPostWorks***/
@@ -164,7 +164,7 @@ async function getCategories (){
 /***add-category on menu modal***/
 function addCategoryOptions() {
   for (let i = 0; i < categories.length; i++) {
-    const selectCategory = document.getElementById("categoryId");
+    const selectCategory = document.getElementById("category");
 
     const category = categories[i];
 
@@ -282,7 +282,6 @@ function openModalAdd() {
 }
  
 /***Upload-img***/
- 
 buttonImg.addEventListener("click",
 (e)=>{
   if(fileImg){
@@ -294,7 +293,7 @@ buttonImg.addEventListener("click",
 }
 );
 
-const imageInput = document.getElementById("imageUrl");
+const imageInput = document.getElementById("image");
 const imagePreview = document.getElementById("imagePreview");
 imageInput.addEventListener('change', function() {
   const file = imageInput.files[0];
@@ -323,15 +322,15 @@ imageInput.addEventListener('change', function() {
 worksForm.addEventListener('submit',async function addNewProject(e){
   e.preventDefault();
   const formData= new FormData();
-  let imageUrl = document.getElementById("imageUrl").files[0];
+  let imageUrl = document.getElementById("image").files[0];
   console.log(imageUrl)
   let title = document.getElementById("title").value;
   console.log(title)
-  let categoryId = document.getElementById("categoryId").value;
+  let categoryId = document.getElementById("category").value;
   console.log(categoryId)
-  formData.append("categoryId",categoryId);
+  formData.append("category",categoryId);
   formData.append("title",title);
-  formData.append("imageUrl",imageUrl);
+  formData.append("image",imageUrl);
   console.log(formData)
   const token = localStorage.getItem("token");
   const response = await fetch("http://localhost:5678/api/works", {
@@ -339,7 +338,7 @@ worksForm.addEventListener('submit',async function addNewProject(e){
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    body: formData
+    body: formData,
   })
   if (response.ok){
     createGallery();
