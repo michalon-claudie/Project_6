@@ -290,46 +290,65 @@ buttonImg.addEventListener("click",
   e.preventDefault();
 }
 );
-
+/**controls parameters IMG */
+const file = imageInput.files[0];
+const allowedTypesImg = ["image/jpg", "image/png"];
+const maxSizeImg = 4 * 1024 * 1024;
+/**if parameters are not allowed*/
+function handleFileTooLarge(){
+  console.log("fichier trop volumineux")
+}
+function handleUnauthorizedFileType(){
+  console.log("le format du fichier n'est pas respecté")
+}
+/***/
+function isFileTypeAuthorized(file){
+  return allowedTypesImg.includes(file)
+}
+function processFile(file){
+  if(file.size>maxSizeImg){
+    handleFileTooLarge(file);
+  }
+  else if(!isFileTypeAuthorized(file)){
+    handleUnauthorizedFileType(file);
+  }
+  else{
+    readAndStoreFile(file)
+  }
+}
 const imageInput = document.getElementById("image");
 const imagePreview = document.getElementById("imagePreview");
 imageInput.addEventListener('change', function() {
-  const file = imageInput.files[0];
-  const maxSizeImg = 4 * 1024 * 1024;
+  processFile()
+})
+function readAndStoreFile(){
   if (file) {
-    if(file.size<maxSizeImg){
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        imagePreview.src = event.target.result;
-      };
-      reader.readAsDataURL(file);
-      const imgIcone = document.querySelector(".fa-image");
-      imgIcone.style.display = "none";
-      const addImgButton = document.getElementById("addImgButton");
-      addImgButton.style.display ="none";
-      const imgParagrapheDetails = document.querySelector(".details");
-      imgParagrapheDetails.style.display = "none";
-      imagePreview.style.display ="flex";
-  } else {
-      imagePreview.src = '#';
-      alert("ce ficher est trop volumineux")
-  }}
-});
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      imagePreview.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+    const imgIcone = document.querySelector(".fa-image");
+    imgIcone.style.display = "none";
+    const addImgButton = document.getElementById("addImgButton");
+    addImgButton.style.display ="none";
+    const imgParagrapheDetails = document.querySelector(".details");
+    imgParagrapheDetails.style.display = "none";
+    imagePreview.style.display ="flex";
+  }else {
+    imagePreview.src = '#';
+  }
+};
 /***FormPostWorks***/
 worksForm.addEventListener('submit',async function addNewProject(e){
   e.preventDefault();
   const formData= new FormData();
-  /***parameters IMG***/
   let imageUrl = document.getElementById("image").files[0];
-  let types = ["image/jpg", "image/png"];
-  let maxSize = 4*1024*1024;
-  const blob = new Blob([imageUrl], { type: types.join(",") });
-  /***/
   let title = document.getElementById("title").value;
   let categoryId = document.getElementById("category").value;
   formData.append("category",categoryId);
   formData.append("title",title);
-  formData.append("image",blob);
+  formData.append("image",imageUrl);
   console.log(formData)
   if(imageUrl == undefined){
     alert("Veuillez choisir un image")
