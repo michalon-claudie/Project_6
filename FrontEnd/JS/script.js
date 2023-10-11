@@ -322,8 +322,8 @@ worksForm.addEventListener('submit',async function addNewProject(e){
   const formData= new FormData();
   let imageUrl = document.getElementById("image").files[0];
   let title = document.getElementById("title").value;
-  let categoryId = document.querySelector(".labelCategory").value;
-  formData.append("labelCategory",categoryId);
+  let categoryId = document.getElementById("category").value;
+  formData.append("category",categoryId);
   formData.append("title",title);
   formData.append("image",imageUrl);
   console.log(formData)
