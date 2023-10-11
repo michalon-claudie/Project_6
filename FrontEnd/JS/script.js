@@ -316,7 +316,6 @@ imageInput.addEventListener('change', function() {
   }}
 });
 /***FormPostWorks***/
- 
 worksForm.addEventListener('submit',async function addNewProject(e){
   e.preventDefault();
   const formData= new FormData();
