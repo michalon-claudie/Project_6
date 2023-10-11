@@ -323,15 +323,21 @@ worksForm.addEventListener('submit',async function addNewProject(e){
   e.preventDefault();
   const formData= new FormData();
   let imageUrl = document.getElementById("image").files[0];
-  console.log(imageUrl)
   let title = document.getElementById("title").value;
-  console.log(title)
   let categoryId = document.getElementById("category").value;
-  console.log(categoryId)
   formData.append("category",categoryId);
   formData.append("title",title);
   formData.append("image",imageUrl);
   console.log(formData)
+  if(imageUrl == undefined){
+    alert("Veuillez choisir un image")
+  }
+  if(title == ""){
+    alert("Veuillez choisir un titre")
+  }
+  if(categoryId.value == undefined){
+    alert("Veuillez choisir une categorie")
+  }
   const token = localStorage.getItem("token");
   const response = await fetch("http://localhost:5678/api/works", {
     method: "POST",
