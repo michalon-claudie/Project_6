@@ -169,7 +169,7 @@ function addCategoryOptions() {
     const category = categories[i];
 
     const addOption = document.createElement("option");
-    addOption.id = "choose-" + category.name;
+    addOption.id = "choose-" + category.id;
 
     const addOptionText = document.createElement("span");
     addOptionText.innerHTML = category.name;
@@ -220,9 +220,7 @@ logout.addEventListener('click', function () {
     modifyButton.style.display = "none";
   }
 })
- 
- 
- 
+
 /***make the modal appear on click*/
  
 openModal.forEach(button => button.addEventListener('click', toggleModal))
@@ -298,8 +296,8 @@ const imagePreview = document.getElementById("imagePreview");
 imageInput.addEventListener('change', function() {
   const file = imageInput.files[0];
   const maxSizeImg = 4 * 1024 * 1024;
-  const fileSizeOK = file.size<maxSizeImg;
-  if (fileSizeOK) {
+  if (file) {
+    if(file.size<maxSizeImg){
       const reader = new FileReader();
       reader.onload = function(event) {
         imagePreview.src = event.target.result;
@@ -315,7 +313,7 @@ imageInput.addEventListener('change', function() {
   } else {
       imagePreview.src = '#';
       alert("ce ficher est trop volumineux")
-  }
+  }}
 });
 /***FormPostWorks***/
  
@@ -324,8 +322,8 @@ worksForm.addEventListener('submit',async function addNewProject(e){
   const formData= new FormData();
   let imageUrl = document.getElementById("image").files[0];
   let title = document.getElementById("title").value;
-  let categoryId = document.getElementById("category").value;
-  formData.append("category",categoryId);
+  let categoryId = document.querySelector(".labelCategory").value;
+  formData.append("labelCategory",categoryId);
   formData.append("title",title);
   formData.append("image",imageUrl);
   console.log(formData)
