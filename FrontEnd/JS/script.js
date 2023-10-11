@@ -65,12 +65,7 @@ function deleteGallery() {
 function deleteModalGallery() {
   removeAllChildren(modalGallery);
 }
-/**
- * Creates and populates a gallery of works using the provided data.
- * This function removes any existing content from the gallery before adding new items.
- * @param {Array} data - An array of objects containing work information.
- * @returns {void}
- */
+
 function createGallery(data) {
  
   deleteGallery();
@@ -292,10 +287,11 @@ buttonImg.addEventListener("click",
 );
 /**controls parameters IMG */
 const imageInput = document.getElementById("image");
-const file = imageInput.files[0];
+let file = imageInput.files[0];
 const blob = new Blob([file]);
 const allowedTypesImg = ["image/jpg", "image/png"];
 const maxSizeImg = 4 * 1024 * 1024;
+
 /**if parameters are not allowed*/
 function handleFileTooLarge(){
   console.log("fichier trop volumineux")
@@ -304,25 +300,26 @@ function handleUnauthorizedFileType(){
   console.log("le format du fichier n'est pas respecté")
 }
 /***/
+
 function isFileTypeAuthorized(file){
-  return allowedTypesImg.includes(file)
+  return allowedTypesImg.includes(file.type);
 }
-function processFile(file){
+function processFile(){
   if(blob.size>maxSizeImg){
-    handleFileTooLarge(file);
+    handleFileTooLarge();
   }
   else if(!isFileTypeAuthorized(file)){
-    handleUnauthorizedFileType(file);
+    handleUnauthorizedFileType();
   }
   else{
     readAndStoreFile(file)
   }
 }
 const imagePreview = document.getElementById("imagePreview");
-imageInput.addEventListener('change', function() {
-  processFile()
+imageInput.addEventListener('change', function(event) {
+  processFile(event.target.files[0])
 })
-function readAndStoreFile(){
+function readAndStoreFile(file){
   if (file) {
     const reader = new FileReader();
     reader.onload = function(event) {
@@ -340,6 +337,7 @@ function readAndStoreFile(){
     imagePreview.src = '#';
   }
 };
+
 /***FormPostWorks***/
 worksForm.addEventListener('submit',async function addNewProject(e){
   e.preventDefault();
