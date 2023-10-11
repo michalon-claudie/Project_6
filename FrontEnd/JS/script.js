@@ -291,7 +291,9 @@ buttonImg.addEventListener("click",
 }
 );
 /**controls parameters IMG */
+const imageInput = document.getElementById("image");
 const file = imageInput.files[0];
+const blob = new Blob([file]);
 const allowedTypesImg = ["image/jpg", "image/png"];
 const maxSizeImg = 4 * 1024 * 1024;
 /**if parameters are not allowed*/
@@ -306,7 +308,7 @@ function isFileTypeAuthorized(file){
   return allowedTypesImg.includes(file)
 }
 function processFile(file){
-  if(file.size>maxSizeImg){
+  if(blob.size>maxSizeImg){
     handleFileTooLarge(file);
   }
   else if(!isFileTypeAuthorized(file)){
@@ -316,7 +318,6 @@ function processFile(file){
     readAndStoreFile(file)
   }
 }
-const imageInput = document.getElementById("image");
 const imagePreview = document.getElementById("imagePreview");
 imageInput.addEventListener('change', function() {
   processFile()
