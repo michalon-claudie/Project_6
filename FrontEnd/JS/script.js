@@ -338,7 +338,7 @@ worksForm.addEventListener('submit',async function addNewProject(e){
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    body: formData,
+    body: formData
   })
   if (response.ok){
     createGallery();
