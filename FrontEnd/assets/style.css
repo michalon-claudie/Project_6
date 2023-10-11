@@ -360,6 +360,13 @@ a:hover
 	border-radius : 3px;
 	height: 169px;
 	width: 100%;
+	max-width: 272px;
+    max-height: 169px;
+}
+.addPicture img
+{
+	max-width: 272px;
+    max-height: 169px;
 }
 .addPicture i,.addPicture button,.addPicture input, .addPicture p
 {

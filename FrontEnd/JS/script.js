@@ -319,15 +319,23 @@ imageInput.addEventListener('change', function() {
 worksForm.addEventListener('submit',async function addNewProject(e){
   e.preventDefault();
   const formData= new FormData();
+  /***parameters IMG***/
   let imageUrl = document.getElementById("image").files[0];
+  let types = ["image/jpg", "image/png"];
+  let maxSize = 4*1024*1024;
+  const blob = new Blob([imageUrl], { type: types.join(",") });
+  /***/
   let title = document.getElementById("title").value;
   let categoryId = document.getElementById("category").value;
   formData.append("category",categoryId);
   formData.append("title",title);
-  formData.append("image",imageUrl);
+  formData.append("image",blob);
   console.log(formData)
   if(imageUrl == undefined){
     alert("Veuillez choisir un image")
+  }
+  if (blob.size>maxSize){
+    alert("Ce fichier est trop volumineux")
   }
   if(title == ""){
     alert("Veuillez choisir un titre")
@@ -340,6 +348,7 @@ worksForm.addEventListener('submit',async function addNewProject(e){
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
+      "Content-type":"multipart/form-data"
     },
     body: formData
   })
