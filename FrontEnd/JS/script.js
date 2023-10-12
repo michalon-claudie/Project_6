@@ -241,8 +241,7 @@ function openAddProjectModal() {
 }
  
 /***Upload-img***/
-addNewPictureButton.addEventListener("click",
-(e)=>{
+addNewPictureButton.addEventListener("click",(e)=>{
   if(fileImg){
     fileImg.click();
     const picture = document.createElement("img");
@@ -260,10 +259,12 @@ const maxSizeImg = 4 * 1024 * 1024;
 
 /**if parameters are not allowed*/
 function handleFileTooLarge(){
-  console.log("fichier trop volumineux")
+  alert("fichier trop volumineux")
+  return;
 }
 function handleUnauthorizedFileType(){
-  console.log("le format du fichier n'est pas respecté")
+  alert("le format du fichier n'est pas respecté")
+  return;
 }
 /***/
 
@@ -343,6 +344,7 @@ worksForm.addEventListener('submit',async function addNewProject(e){
   }
   else{
     alert("alerte,impossible d'ajouter ce projet");
+    return;
   }
   }
 );
