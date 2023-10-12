@@ -166,6 +166,8 @@ function addCategoryOptions() {
     const addOption = document.createElement("option");
     addOption.id = "choose-" + category.id;
 
+    addOption.value = category.id;
+
     const addOptionText = document.createElement("span");
     addOptionText.innerHTML = category.name;
 
@@ -351,25 +353,29 @@ worksForm.addEventListener('submit',async function addNewProject(e){
   console.log(formData)
   if(imageUrl == undefined){
     alert("Veuillez choisir un image")
+    return; 
   }
   if(title == ""){
     alert("Veuillez choisir un titre")
+    return;
   }
-  if(categoryId.value == undefined){
+  if(categoryId == undefined){
     alert("Veuillez choisir une categorie")
+    return;
   }
   const token = localStorage.getItem("token");
   const response = await fetch("http://localhost:5678/api/works", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-type":"multipart/form-data"
+      //"Content-type":"multipart/form-data"
     },
     body: formData
   })
   if (response.ok){
-    createGallery();
-    createModal();
+    closeModal();
+    alert("projet ajouté avec succès");
+    init();
   }
   else{
     alert("alerte,impossible d'ajouter ce projet");
