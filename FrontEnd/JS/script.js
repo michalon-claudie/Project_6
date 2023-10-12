@@ -19,7 +19,7 @@ const modalGallery = document.querySelector(".modalGallery");
  
 /***make the modal appear on click*/
 const openModal = document.querySelectorAll('[data-action="openModal"]');
-const modal1 = document.querySelector(".modal");
+const modale = document.querySelector(".modale");
  
 /**Close Modal*/
 const closeCross = document.querySelectorAll(".closeModal");
@@ -29,12 +29,12 @@ const overlay = document.querySelector(".overlayModal");
 const goBackButton = document.querySelector(".fa-arrow-left");
  
 /**Open addProjectModal*/
-const addProject = document.querySelector(".addButton");
+const addProjectButton = document.querySelector(".addProjectButton");
 const modalContent = document.querySelector(".modalContent");
 const addProjectModal= document.querySelector(".addProjectModal");
  
 /***Upload-img***/
-const buttonImg = document.getElementById("addImgButton");
+const addNewPictureButton = document.getElementById("addNewPictureButton");
 const fileImg = document.getElementById("image");
 const addPictureForm = document.querySelector(".addPicture");
  
@@ -48,17 +48,31 @@ function removeAllChildren(node) {
   node.innerHTML = ''
 }
  
-function deleteGallery() {
+function clearGallery() {
   removeAllChildren(gallery);
 }
 
-function deleteModalGallery() {
+function clearModalGallery() {
   removeAllChildren(modalGallery);
 }
 
+async function getWorks() {
+  try {
+    const galleryResponse = (await fetch('http://localhost:5678/api/works')).json();
+    return galleryResponse;
+  } catch (err) {
+    console.log("An error occurred when fetching pictures.");
+    return []; 
+  }
+}
+
+async function getCategories (){
+  const categoriesResponse = await fetch("http://localhost:5678/api/categories");
+  return categoriesResponse.json();
+}
 function createGallery(data) {
  
-  deleteGallery();
+  clearGallery();
  
   for (let i = 0; i < data.length; i++) {
     const worksIndex = data[i];
@@ -79,7 +93,7 @@ function createGallery(data) {
  
 function createModal(data) {
 
-  deleteModalGallery();
+  clearModalGallery();
  
   for (let i = 0; i < data.length; i++) {
     const worksIndex = data[i];
@@ -101,27 +115,16 @@ function createModal(data) {
   }
 }
  
-async function getPictures() {
-  try {
-    const galleryResponse = (await fetch('http://localhost:5678/api/works')).json();
-    return galleryResponse;
-  } catch (err) {
-    console.log("An error occurred when fetching pictures.");
-    return []; 
-  }
-}
- 
 /**Function - add filters***/
- 
-allButton.addEventListener('click', function () {
-  createGallery(rawData);
-});
  
 function createFilterButtons() {
   const buttonText = document.createElement("span");
   buttonText.innerHTML = "Tous"; 
   filters.appendChild(allButton)
   allButton.appendChild(buttonText)
+  allButton.addEventListener('click', function () {
+    createGallery(rawData);
+  });
   for (let i = 0; i < categories.length; i++) {
     const filters = document.querySelector(".filters");
  
@@ -143,11 +146,6 @@ function createFilterButtons() {
       createGallery(filteredPictures);
     });
   }
-}
- 
-async function getCategories (){
-  const categoriesResponse = await fetch("http://localhost:5678/api/categories");
-  return categoriesResponse.json();
 }
  
 /***add-category on menu modal***/
@@ -172,7 +170,7 @@ function addCategoryOptions() {
  
 async function init(){
   rawData.length = 0; // Before a new fetch, we empty the raw data array.
-  const data = await getPictures();
+  const data = await getWorks();
   rawData.push(...data);
  
   createGallery(rawData);
@@ -183,44 +181,16 @@ async function init(){
 }
  
 init();
-/***Button-filters generated***/
- 
-/**Function connectionUser managment*/
- 
-if (token) {
-  filters.style.display = "none";
-  editionBanner.style.display = "flex";
-  loginButton.style.display = "none";
-  modifyButton.style.display = "flex";
-}
-else {
-  filters.style.display = "flex";
-  editionBanner.style.display = "none";
-  logoutButton.style.display = "none";
-  loginButton.style.display = "flex";
-  modifyButton.style.display = "none";
-}
- 
-logoutButton.addEventListener('click', function () {
-  if (token) {
-    localStorage.removeItem("token");
-    filters.style.display = "flex";
-    editionBanner.style.display = "none";
-    logoutButton.style.display = "none";
-    loginButton.style.display = "flex";
-    modifyButton.style.display = "none";
-  }
-})
 
-/***make the modal appear on click*/
+ /***make the modal appear on click*/
  
 openModal.forEach(button => button.addEventListener('click', toggleModal))
  
 function toggleModal() {
-  modal1.style.display = "flex";
+  modale.style.display = "flex";
   modalContent.style.display="flex";
   addProjectModal.style.display="none";
- getPictures();
+ getWorks();
 }
  
 /**Close Modal*/
@@ -229,7 +199,7 @@ closeCross.forEach(close =>close.addEventListener('click', closeModal))
 overlay.addEventListener('click', closeModal)
  
 function closeModal() {
-  modal1.style.display = "none";
+  modale.style.display = "none";
 }
  
 /***delete projects***/
@@ -263,15 +233,15 @@ function goback(){
  
 /***PostWorks-openaddProjectModal***/
  
-addProject.addEventListener('click', openModalAdd)
+addProjectButton.addEventListener('click', openAddProjectModal)
  
-function openModalAdd() {
+function openAddProjectModal() {
   modalContent.style.display ="none";
   addProjectModal.style.display ="flex";
 }
  
 /***Upload-img***/
-buttonImg.addEventListener("click",
+addNewPictureButton.addEventListener("click",
 (e)=>{
   if(fileImg){
     fileImg.click();
@@ -324,8 +294,8 @@ function readAndStoreFile(file){
     reader.readAsDataURL(file);
     const imgIcone = document.querySelector(".fa-image");
     imgIcone.style.display = "none";
-    const addImgButton = document.getElementById("addImgButton");
-    addImgButton.style.display ="none";
+    const addNewPictureButton = document.getElementById("addNewPictureButton");
+    addNewPictureButton.style.display ="none";
     const imgParagrapheDetails = document.querySelector(".details");
     imgParagrapheDetails.style.display = "none";
     imagePreview.style.display ="flex";
@@ -377,3 +347,30 @@ worksForm.addEventListener('submit',async function addNewProject(e){
   }
 );
   
+/**Function connectionUser managment*/
+ 
+if (token) {
+  filters.style.display = "none";
+  editionBanner.style.display = "flex";
+  loginButton.style.display = "none";
+  modifyButton.style.display = "flex";
+}
+else {
+  filters.style.display = "flex";
+  editionBanner.style.display = "none";
+  logoutButton.style.display = "none";
+  loginButton.style.display = "flex";
+  modifyButton.style.display = "none";
+}
+ 
+logoutButton.addEventListener('click', function () {
+  if (token) {
+    localStorage.removeItem("token");
+    filters.style.display = "flex";
+    editionBanner.style.display = "none";
+    logoutButton.style.display = "none";
+    loginButton.style.display = "flex";
+    modifyButton.style.display = "none";
+  }
+})
+
