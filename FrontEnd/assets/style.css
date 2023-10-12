@@ -173,13 +173,13 @@ a:hover
 {
 	padding-right: 20px;
 }
-#blackBloc
+#editionBanner
 {
 	padding:20px;
 	display: flex;
 	justify-content: center;
 }
-.editionMode,#blackBloc
+.editionMode,#editionBanner
 {
 	color:white;
 	background-color: black;
@@ -195,7 +195,7 @@ a:hover
 	color: #B1663C;
 	cursor:pointer;
 }
-#blackBloc i 
+#editionBanner i 
 {
 	background-color: black;
 }

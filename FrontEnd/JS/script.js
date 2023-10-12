@@ -6,15 +6,10 @@ let categories =[];
 /***category and filters***/
 const allButton = document.createElement("button");
 const filters = document.querySelector(".filters");
-const buttonText = document.createElement("span");
-buttonText.innerHTML = "Tous";
- 
-filters.appendChild(allButton)
-allButton.appendChild(buttonText)
  
 /***Manage connection User***/
 const token = localStorage.getItem("token");
-const blackBloc = document.getElementById("blackBloc");
+const editionBanner = document.getElementById("editionBanner");
 const logout = document.getElementById("logout");
 const login = document.getElementById("login");
 const modifyButton = document.querySelector(".modifyProject");
@@ -128,6 +123,10 @@ allButton.addEventListener('click', function () {
 });
  
 function createFilterButtons() {
+  const buttonText = document.createElement("span");
+  buttonText.innerHTML = "Tous"; 
+  filters.appendChild(allButton)
+  allButton.appendChild(buttonText)
   for (let i = 0; i < categories.length; i++) {
     const filters = document.querySelector(".filters");
  
@@ -195,13 +194,13 @@ init();
  
 if (token) {
   filters.style.display = "none";
-  blackBloc.style.display = "flex";
+  editionBanner.style.display = "flex";
   login.style.display = "none";
   modifyButton.style.display = "flex";
 }
 else {
   filters.style.display = "flex";
-  blackBloc.style.display = "none";
+  editionBanner.style.display = "none";
   logout.style.display = "none";
   login.style.display = "flex";
   modifyButton.style.display = "none";
@@ -211,7 +210,7 @@ logout.addEventListener('click', function () {
   if (token) {
     localStorage.removeItem("token");
     filters.style.display = "flex";
-    blackBloc.style.display = "none";
+    editionBanner.style.display = "none";
     logout.style.display = "none";
     login.style.display = "flex";
     modifyButton.style.display = "none";
