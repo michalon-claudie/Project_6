@@ -286,9 +286,9 @@ buttonImg.addEventListener("click",
 }
 );
 /**controls parameters IMG */
+const imagePreview = document.getElementById("imagePreview");
 const imageInput = document.getElementById("image");
 let file = imageInput.files[0];
-const blob = new Blob([file]);
 const allowedTypesImg = ["image/jpg", "image/png"];
 const maxSizeImg = 4 * 1024 * 1024;
 
@@ -304,8 +304,8 @@ function handleUnauthorizedFileType(){
 function isFileTypeAuthorized(file){
   return allowedTypesImg.includes(file.type);
 }
-function processFile(){
-  if(blob.size>maxSizeImg){
+function processFile(file){
+  if(file.size>maxSizeImg){
     handleFileTooLarge();
   }
   else if(!isFileTypeAuthorized(file)){
@@ -315,7 +315,7 @@ function processFile(){
     readAndStoreFile(file)
   }
 }
-const imagePreview = document.getElementById("imagePreview");
+
 imageInput.addEventListener('change', function(event) {
   processFile(event.target.files[0])
 })
@@ -351,9 +351,6 @@ worksForm.addEventListener('submit',async function addNewProject(e){
   console.log(formData)
   if(imageUrl == undefined){
     alert("Veuillez choisir un image")
-  }
-  if (blob.size>maxSize){
-    alert("Ce fichier est trop volumineux")
   }
   if(title == ""){
     alert("Veuillez choisir un titre")
