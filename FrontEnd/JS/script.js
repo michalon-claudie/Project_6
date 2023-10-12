@@ -10,14 +10,9 @@ const filters = document.querySelector(".filters");
 /***Manage connection User***/
 const token = localStorage.getItem("token");
 const editionBanner = document.getElementById("editionBanner");
-const logout = document.getElementById("logout");
-const login = document.getElementById("login");
+const logoutButton = document.getElementById("logoutButton");
+const loginButton = document.getElementById("loginButton");
 const modifyButton = document.querySelector(".modifyProject");
-const modalButton = document.querySelector(".modal-button");
-modalButton.innerHTML = "Modifier";
-const modifyTitle = document.querySelector(".title-modify");
-modifyTitle.appendChild(modifyButton)
-modifyButton.appendChild(modalButton)
  
 /***Creating modal***/
 const modalGallery = document.querySelector(".modalGallery");
@@ -30,13 +25,13 @@ const modal1 = document.querySelector(".modal");
 const closeCross = document.querySelectorAll(".closeModal");
 const overlay = document.querySelector(".overlayModal");
  
-/***go back in modal2*/
-const arrow = document.querySelector(".fa-arrow-left");
+/***go back in addProjectModal*/
+const goBackButton = document.querySelector(".fa-arrow-left");
  
-/**Open Modal2*/
+/**Open addProjectModal*/
 const addProject = document.querySelector(".addButton");
 const modalContent = document.querySelector(".modalContent");
-const modal2= document.querySelector(".modal2");
+const addProjectModal= document.querySelector(".addProjectModal");
  
 /***Upload-img***/
 const buttonImg = document.getElementById("addImgButton");
@@ -195,24 +190,24 @@ init();
 if (token) {
   filters.style.display = "none";
   editionBanner.style.display = "flex";
-  login.style.display = "none";
+  loginButton.style.display = "none";
   modifyButton.style.display = "flex";
 }
 else {
   filters.style.display = "flex";
   editionBanner.style.display = "none";
-  logout.style.display = "none";
-  login.style.display = "flex";
+  logoutButton.style.display = "none";
+  loginButton.style.display = "flex";
   modifyButton.style.display = "none";
 }
  
-logout.addEventListener('click', function () {
+logoutButton.addEventListener('click', function () {
   if (token) {
     localStorage.removeItem("token");
     filters.style.display = "flex";
     editionBanner.style.display = "none";
-    logout.style.display = "none";
-    login.style.display = "flex";
+    logoutButton.style.display = "none";
+    loginButton.style.display = "flex";
     modifyButton.style.display = "none";
   }
 })
@@ -224,7 +219,7 @@ openModal.forEach(button => button.addEventListener('click', toggleModal))
 function toggleModal() {
   modal1.style.display = "flex";
   modalContent.style.display="flex";
-  modal2.style.display="none";
+  addProjectModal.style.display="none";
  getPictures();
 }
  
@@ -257,22 +252,22 @@ async function deletePicturesById(id) {
   }
 }
  
-/***Modal2***/
+/***addProjectModal***/
  
-arrow.addEventListener('click',goback)
+goBackButton.addEventListener('click',goback)
  
 function goback(){
   modalContent.style.display="flex";
-  modal2.style.display = "none";
+  addProjectModal.style.display = "none";
 }
  
-/***PostWorks-openModal2***/
+/***PostWorks-openaddProjectModal***/
  
 addProject.addEventListener('click', openModalAdd)
  
 function openModalAdd() {
   modalContent.style.display ="none";
-  modal2.style.display ="flex";
+  addProjectModal.style.display ="flex";
 }
  
 /***Upload-img***/
