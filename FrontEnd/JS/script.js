@@ -324,7 +324,7 @@ worksForm.addEventListener('submit',async function addNewProject(e){
     alert("Veuillez choisir un titre")
     return;
   }
-  if(categoryId == undefined){
+  if(categoryId == "Veuillez choisir une catégorie"){
     alert("Veuillez choisir une categorie")
     return;
   }
