@@ -22,11 +22,7 @@ async function connectUser (email,password){
         localStorage.setItem('token', responseData.token)
         window.location.href = "./index.html"
         console.log("ok")
-    } else {
-        console.error("L'identifiant ou le mot de passe sont incorrectes")
-        const error = document.querySelector(".error-message")
-        error.innerHTML = "Les informations renseignées sont incorrectes"
-    }
+    } 
 }
 
 
