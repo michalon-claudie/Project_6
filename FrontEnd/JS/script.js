@@ -37,6 +37,13 @@ const addProjectModal= document.querySelector(".addProjectModal");
 const addNewPictureButton = document.getElementById("addNewPictureButton");
 const fileImg = document.getElementById("image");
 const addPictureForm = document.querySelector(".addPicture");
+
+/**controls parameters IMG */
+const imagePreview = document.getElementById("imagePreview");
+const imageInput = document.getElementById("image");
+let file = imageInput.files[0];
+const allowedTypesImg = ["image/jpg", "image/png"];
+const maxSizeImg = 4 * 1024 * 1024;
  
 /***FormPostWorks***/
 const worksForm = document.querySelector(".worksForm");
@@ -67,8 +74,13 @@ async function getWorks() {
 }
 
 async function getCategories (){
-  const categoriesResponse = await fetch("http://localhost:5678/api/categories");
-  return categoriesResponse.json();
+  try{
+  const categoriesResponse = (await fetch("http://localhost:5678/api/categories")).json();
+  return categoriesResponse;
+} catch(err){
+  console.log("An error occurred when fetching categories.");
+  return [];
+}
 }
 function createGallery(data) {
  
@@ -250,12 +262,6 @@ addNewPictureButton.addEventListener("click",(e)=>{
   e.preventDefault();
 }
 );
-/**controls parameters IMG */
-const imagePreview = document.getElementById("imagePreview");
-const imageInput = document.getElementById("image");
-let file = imageInput.files[0];
-const allowedTypesImg = ["image/jpg", "image/png"];
-const maxSizeImg = 4 * 1024 * 1024;
 
 /**if parameters are not allowed*/
 function handleFileTooLarge(){
@@ -291,6 +297,7 @@ function readAndStoreFile(file){
     const reader = new FileReader();
     reader.onload = function(event) {
       imagePreview.src = event.target.result;
+      
     };
     reader.readAsDataURL(file);
     const imgIcone = document.querySelector(".fa-image");
@@ -332,8 +339,7 @@ worksForm.addEventListener('submit',async function addNewProject(e){
   const response = await fetch("http://localhost:5678/api/works", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${token}`,
-      //"Content-type":"multipart/form-data"
+      Authorization: `Bearer ${token}`
     },
     body: formData
   })

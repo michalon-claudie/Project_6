@@ -25,7 +25,6 @@ async function connectUser (email,password){
     } 
 }
 
-
 validButton.addEventListener("click", function(event)
 {
     event.preventDefault()
