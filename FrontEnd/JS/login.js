@@ -23,6 +23,10 @@ async function connectUser (email,password){
         window.location.href = "./index.html"
         console.log("ok")
     } 
+    else{
+        alert("l'identifiant ou le mot de passe est incorrectes")
+        return false
+    }
 }
 
 validButton.addEventListener("click", function(event)
