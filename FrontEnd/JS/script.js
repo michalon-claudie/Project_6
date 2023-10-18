@@ -49,7 +49,7 @@ const maxSizeImg = 4 * 1024 * 1024;
 const worksForm = document.querySelector(".worksForm");
  
 /***Function***/
- 
+
 /***To create gallery***/
 function removeAllChildren(node) {
   node.innerHTML = ''
@@ -179,7 +179,7 @@ function addCategoryOptions() {
     addOption.appendChild(addOptionText);
   }
 }
- 
+
 async function init(){
   rawData.length = 0; // Before a new fetch, we empty the raw data array.
   const data = await getWorks();
@@ -296,8 +296,7 @@ function readAndStoreFile(file){
   if (file) {
     const reader = new FileReader();
     reader.onload = function(event) {
-      imagePreview.src = event.target.result;
-      
+    imagePreview.src = event.target.result;  
     };
     reader.readAsDataURL(file);
     const imgIcone = document.querySelector(".fa-image");

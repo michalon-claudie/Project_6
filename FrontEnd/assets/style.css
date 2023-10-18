@@ -349,6 +349,10 @@ a:hover
 	padding:3% 15%;
 	gap:20px;
 }
+.addProjectModal h2,.addProjectModal label 
+{
+	margin-bottom: 1%;
+}
 .addPicture
 {
 	position: relative;
