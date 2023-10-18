@@ -33,10 +33,6 @@ validButton.addEventListener("click", function(event)
         alert("Les champs renseignés sont incorrectes")
         return false
     }
-    else if(email.checkValidity()){
-        alert("email incorrect")
-        return false
-    }
     const emailValue = email.value
     const passwordValue = pword.value
     console.log(emailValue)
